@@ -97,7 +97,9 @@ class SignUpScreen extends StatelessWidget {
 
   Widget continueButton(BuildContext context) {
     return BasicAppButton(
-      onPressed: () {},
+      onPressed: () {
+        AutoRouter.of(context).push(GenderAndAgeSelectionRoute());
+      },
       title: "Continue",
     );
   }

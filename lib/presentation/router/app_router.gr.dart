@@ -27,6 +27,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const ForgotPasswordPage(),
       );
     },
+    GenderAndAgeSelectionRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const GenderAndAgeSelectionPage()),
+      );
+    },
     SignUpRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -72,6 +78,20 @@ class ForgotPasswordRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ForgotPasswordRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [GenderAndAgeSelectionPage]
+class GenderAndAgeSelectionRoute extends PageRouteInfo<void> {
+  const GenderAndAgeSelectionRoute({List<PageRouteInfo>? children})
+      : super(
+          GenderAndAgeSelectionRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'GenderAndAgeSelectionRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
