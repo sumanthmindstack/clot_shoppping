@@ -1,0 +1,1 @@
+enum InvestmentType { ria, mfd }

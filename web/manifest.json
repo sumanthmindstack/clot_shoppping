@@ -1,6 +1,6 @@
 {
-    "name": "clot_store",
-    "short_name": "clot_store",
+    "name": "maxwealth_distributor_app",
+    "short_name": "maxwealth_distributor_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

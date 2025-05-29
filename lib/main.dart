@@ -1,40 +1,19 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:clot_store/firebase_options.dart';
-import 'package:clot_store/presentation/splash/bloc/splash_state.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_core/firebase_core.dart';
-
+import 'package:hive_flutter/adapters.dart';
+import 'package:maxwealth_distributor_app/app.dart';
+import 'core/entities/user_local.dart';
+import 'core/resource/bloc_observer.dart';
 import 'get_it/get_it.dart';
-import 'presentation/router/app_router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const CShopingApp());
-}
-
-final _appRouter = AppRouter();
-
-class CShopingApp extends StatelessWidget {
-  const CShopingApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      builder: (context, child) {
-        return BlocProvider(
-          create: (context) => SplashCubit()..appStarted(),
-          child: MaterialApp.router(
-              themeMode: ThemeMode.dark,
-              theme: ThemeData.dark(),
-              routerConfig: _appRouter.config(
-                navigatorObservers: () => [AutoRouteObserver()],
-              )),
-        );
-      },
-    );
+  Bloc.observer = MyBlocObserver();
+  await Hive.initFlutter("data");
+  Hive.registerAdapter(UserLocalAdapter());
+  if (!Hive.isBoxOpen('userBox')) {
+    await Hive.openBox<UserLocal>('userBox');
   }
+  runApp(const MaxWealthDistributor());
 }

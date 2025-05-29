@@ -8,24 +8,63 @@
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
-import 'package:svg_flutter/svg.dart';
 
-class $AssetsAppIconsGen {
-  const $AssetsAppIconsGen();
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
 
-  /// File path: assets/app_icons/clot_store_splash_logo.svg
-  SvgGenImage get clotStoreSplashLogo =>
-      const SvgGenImage('assets/app_icons/clot_store_splash_logo.svg');
+  /// File path: assets/images/account_verfied.json
+  String get accountVerfied => 'assets/images/account_verfied.json';
+
+  /// File path: assets/images/account_verified_image.png
+  AssetGenImage get accountVerifiedImage =>
+      const AssetGenImage('assets/images/account_verified_image.png');
+
+  /// File path: assets/images/invester_image.svg
+  SvgGenImage get investerImage =>
+      const SvgGenImage('assets/images/invester_image.svg');
+
+  /// File path: assets/images/logo.png
+  AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
+
+  /// File path: assets/images/mpin_logo.png
+  AssetGenImage get mpinLogo =>
+      const AssetGenImage('assets/images/mpin_logo.png');
+
+  /// File path: assets/images/total_aum_image.svg
+  SvgGenImage get totalAumImage =>
+      const SvgGenImage('assets/images/total_aum_image.svg');
+
+  /// File path: assets/images/user_image.svg
+  SvgGenImage get userImage =>
+      const SvgGenImage('assets/images/user_image.svg');
+
+  /// File path: assets/images/verfied_animation.json
+  String get verfiedAnimation => 'assets/images/verfied_animation.json';
+
+  /// File path: assets/images/wallkthrough_image.svg
+  SvgGenImage get wallkthroughImage =>
+      const SvgGenImage('assets/images/wallkthrough_image.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [clotStoreSplashLogo];
+  List<dynamic> get values => [
+        accountVerfied,
+        accountVerifiedImage,
+        investerImage,
+        logo,
+        mpinLogo,
+        totalAumImage,
+        userImage,
+        verfiedAnimation,
+        wallkthroughImage
+      ];
 }
 
 class Assets {
   Assets._();
 
-  static const $AssetsAppIconsGen appIcons = $AssetsAppIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
 }
 
 class AssetGenImage {
