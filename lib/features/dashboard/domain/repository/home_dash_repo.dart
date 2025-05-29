@@ -3,6 +3,8 @@ import 'package:maxwealth_distributor_app/features/dashboard/domain/entities/das
 import 'package:maxwealth_distributor_app/features/dashboard/domain/entities/dashboard_data_count_entity.dart';
 
 import '../../../../core/entities/app_error.dart';
+import '../entities/dash_aum_report_graph_entity.dart';
+import '../entities/dash_monthwise_invester_details_graph_entity.dart';
 import '../entities/dash_monthwise_sip_details_graph_entity.dart';
 import '../entities/dash_monthwise_trans_details_graph_entity.dart';
 import '../entities/trans_typewise_returns_entity.dart';
@@ -11,7 +13,7 @@ abstract class HomeDashRepo {
   Future<Either<AppError, DashboardDatacountEntity>> dashboardDataCount();
   Future<Either<AppError, DashMonthwiseUserDetailsGraphEntity>>
       dashMonthwiseUserDetailsGraphData(Map<String, dynamic> params);
-  Future<Either<AppError, DashMonthwiseUserDetailsGraphEntity>>
+  Future<Either<AppError, DashMonthwiseInvesterDetailsGraphEntity>>
       dashMonthwiseInvesterDetailsGraphData(Map<String, dynamic> params);
   Future<Either<AppError, DashMonthwiseTransDetailsGraphEntity>>
       dashMonthwiseTransDetailsGraphData(Map<String, dynamic> params);
@@ -19,4 +21,6 @@ abstract class HomeDashRepo {
       transTypewiseReturns();
   Future<Either<AppError, DashMonthwiseSipDetailsGraphEntity>>
       dashMonthwiseSipDetailsGraphData(Map<String, dynamic> params);
+  Future<Either<AppError, DashAumReportGraphEntity>> dashAumReportGraph(
+      Map<String, dynamic> params);
 }

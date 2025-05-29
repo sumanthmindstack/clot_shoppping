@@ -35,3 +35,10 @@ class TransTypewiseReturnsResponseEntity {
     required this.meta,
   });
 }
+
+class TransBreakdownEntity {
+  final String label;
+  final String value;
+
+  TransBreakdownEntity({required this.label, required this.value});
+}

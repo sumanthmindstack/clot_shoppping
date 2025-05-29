@@ -4,6 +4,8 @@ import 'package:maxwealth_distributor_app/features/dashboard/data/models/dashboa
 
 import '../../../../core/api/api_client.dart';
 import '../../../../core/api/api_constants.dart';
+import '../models/dash_aum_report_graph_response_model.dart';
+import '../models/dash_monthwise_invester_details_graph_response_model.dart';
 import '../models/dash_monthwise_sip_details_graph_response_model.dart';
 import '../models/dash_monthwise_trans_details_graph_response_model.dart';
 import '../models/trans_typewise_returns_response_model.dart';
@@ -12,12 +14,14 @@ abstract class HomeDashApiService {
   Future<DashboardDatacountResponseModel> dashboardDataCount();
   Future<DashMonthwiseUserDetailsGraphModel> dashMonthwiseUserDetailsGraphData(
       Map<String, dynamic> params);
-  Future<DashMonthwiseUserDetailsGraphModel>
+  Future<DashMonthwiseInvesterDetailsGraphModel>
       dashMonthwiseInvesterDetailsGraphData(Map<String, dynamic> params);
   Future<DashMonthwiseTransDetailsGraphModel>
       dashMonthwiseTransDetailsGraphData(Map<String, dynamic> params);
   Future<TransTypewiseReturnsResponseModel> transTypewiseReturns();
   Future<DashMonthwiseSipDetailsGraphModel> dashMonthwiseSipDetailsGraphData(
+      Map<String, dynamic> params);
+  Future<DashAumReportGraphResponseModel> dashAumReportGraph(
       Map<String, dynamic> params);
 }
 
@@ -44,13 +48,13 @@ class HomeDashApiServiceImpl implements HomeDashApiService {
   }
 
   @override
-  Future<DashMonthwiseUserDetailsGraphModel>
+  Future<DashMonthwiseInvesterDetailsGraphModel>
       dashMonthwiseInvesterDetailsGraphData(Map<String, dynamic> params) async {
     final response = await _client.get(
         ApiConstants.dashMonthwiseInvesterDetailsGraph,
         requiresToken: true,
         queryParameters: params);
-    return DashMonthwiseUserDetailsGraphModel.fromJson(response);
+    return DashMonthwiseInvesterDetailsGraphModel.fromJson(response);
   }
 
   @override
@@ -80,5 +84,13 @@ class HomeDashApiServiceImpl implements HomeDashApiService {
         requiresToken: true,
         queryParameters: params);
     return DashMonthwiseSipDetailsGraphModel.fromJson(response);
+  }
+
+  @override
+  Future<DashAumReportGraphResponseModel> dashAumReportGraph(
+      Map<String, dynamic> params) async {
+    final response = await _client.get(ApiConstants.dashAumReportEndpoint,
+        requiresToken: true, queryParameters: params);
+    return DashAumReportGraphResponseModel.fromJson(response);
   }
 }

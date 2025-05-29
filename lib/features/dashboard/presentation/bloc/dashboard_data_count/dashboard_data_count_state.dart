@@ -14,11 +14,13 @@ class DashboardDataCountLoadingState extends DashboardDataCountState {
 
 class DashboardDataCountSuccessState extends DashboardDataCountState {
   final DashboardDatacountEntity dashboardDatacountEntity;
+  final List<Map<String, String>> breakdownValues;
 
-  DashboardDataCountSuccessState(this.dashboardDatacountEntity);
+  DashboardDataCountSuccessState(
+      this.dashboardDatacountEntity, this.breakdownValues);
 
   @override
-  List<Object> get props => [dashboardDatacountEntity];
+  List<Object> get props => [dashboardDatacountEntity, breakdownValues];
 }
 
 class DashboardDataCountFailureState extends DashboardDataCountState {

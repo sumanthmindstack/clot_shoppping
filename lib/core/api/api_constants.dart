@@ -21,8 +21,9 @@ class ApiConstants {
 
   //dashboard home apis
   static const String dashboardDataCount = "/admin/reports/get_data_count";
+  static const String dashAumReportEndpoint = "/admin/reports/aum_report_graph";
   static const String dashMonthwiseUserDetailsGraph =
-      "/admin/onboarding/total_users";
+      "/admin/users/total_users";
   static const String dashMonthwiseInvesterDetailsGraph =
       "/admin/onboarding/total_investors";
   static const String dashMonthwiseTransDetailsGraph =

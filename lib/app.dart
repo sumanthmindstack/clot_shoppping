@@ -24,6 +24,7 @@ import 'features/auth/presentation/bloc/ria_contact_details/ria_contact_details_
 import 'features/auth/presentation/bloc/ria_flow_check/ria_flow_check_cubit.dart';
 import 'features/auth/presentation/bloc/ria_patch/ria_patch_cubit.dart';
 import 'features/auth/presentation/bloc/verify_otp/verify_otp_cubit.dart';
+import 'features/dashboard/presentation/bloc/dash_aum_report_graph/dash_aum_report_graph_cubit.dart';
 import 'features/dashboard/presentation/bloc/dash_monthwise_invester_details_graph/dash_monthwise_invester_details_graph_cubit.dart';
 import 'features/dashboard/presentation/bloc/dash_monthwise_sip_details_graph/dash_monthwise_sip_details_graph_cubit.dart';
 import 'features/dashboard/presentation/bloc/dash_monthwise_trans_details_graph/dash_monthwise_trans_details_graph_cubit.dart';
@@ -95,6 +96,7 @@ class _MaxWealthDistributorState extends State<MaxWealthDistributor> {
             create: (context) =>
                 getIt<DashMonthwiseInvesterDetailsGraphCubit>()),
         BlocProvider(create: (context) => getIt<SelectedTypeCubit>()),
+        BlocProvider(create: (context) => getIt<DashAumReportGraphCubit>()),
       ],
       child: MaterialApp(
           title: "Maxwealth Distributor",

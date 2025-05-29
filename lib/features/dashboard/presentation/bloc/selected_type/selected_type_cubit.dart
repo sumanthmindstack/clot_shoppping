@@ -8,6 +8,8 @@ class SelectedTypeCubit extends Cubit<String> {
   SelectedTypeCubit() : super("Users");
 
   void selectType(String type) {
+    print("Selected type: $type");
+
     emit(type);
   }
 }

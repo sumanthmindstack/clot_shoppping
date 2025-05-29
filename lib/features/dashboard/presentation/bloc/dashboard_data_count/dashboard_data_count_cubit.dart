@@ -15,6 +15,8 @@ class DashboardDataCountCubit extends Cubit<DashboardDataCountState> {
 
   DashboardDataCountCubit(this._dashboardDataCountUsecase)
       : super(DashboardDataCountInitialState());
+  DashboardDatacountEntity? _dashboardData;
+  DashboardDatacountEntity? get dashboardData => _dashboardData;
 
   void dashboardDataCount() async {
     emit(DashboardDataCountLoadingState());
@@ -25,7 +27,19 @@ class DashboardDataCountCubit extends Cubit<DashboardDataCountState> {
         DashboardDataCountFailureState(
             errorType: l.errorType, errorMessage: l.error),
       ),
-      (r) => emit(DashboardDataCountSuccessState(r)),
+      (r) {
+        _dashboardData = r;
+        final breakdownValues = [
+          {'title': 'Equity', 'subtitle': '${r.data.aumReportDto.equityValue}'},
+          {'title': 'Dept', 'subtitle': '${r.data.aumReportDto.debtValue}'},
+          {'title': 'Hybrid', 'subtitle': '${r.data.aumReportDto.hybridValue}'},
+          {
+            'title': 'Alternate',
+            'subtitle': '${r.data.aumReportDto.alternateValue}'
+          },
+        ];
+        emit(DashboardDataCountSuccessState(r, breakdownValues));
+      },
     );
   }
 }

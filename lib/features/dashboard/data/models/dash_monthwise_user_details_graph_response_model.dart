@@ -36,14 +36,14 @@ class MonthwiseUserDataModel extends MonthwiseUserDataEntity {
   factory MonthwiseUserDataModel.fromJson(Map<String, dynamic> json) {
     return MonthwiseUserDataModel(
       month: json['month'],
-      totalInvestors: json['total_investors'],
+      totalInvestors: json['active_users'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
       'month': month,
-      'total_investors': totalInvestors,
+      'active_users': totalInvestors,
     };
   }
 }

@@ -42,4 +42,10 @@ class AppColors {
   static const Color swpContainerColorCombination2 = Color(0xFF1D2671);
   static const Color stpContainerColorCombination1 = Color(0xFF36D1DC);
   static const Color stpContainerColorCombination2 = Color(0xFF5B86E5);
+  static const Color tropicalTeal = Color(0xFF00C9A7);
+  static const Color oceanMist = Color(0xFF0EB09A);
+  static const Color dodgerBlue = Color(0xFF1E90FF);
+  static const Color deepSkyBlue = Color(0xFF00BFFF);
+  static const Color sunsetGold = Color(0xFFFFC371);
+  static const Color coralBlush = Color(0xFFFF5F6D);
 }

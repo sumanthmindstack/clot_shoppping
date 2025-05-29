@@ -11,7 +11,6 @@ class MonthwiseTransactionGraph extends StatelessWidget {
   final String subtitle;
   final Color bar1Color;
   final Color bar2Color;
-  final Color titleColor;
 
   const MonthwiseTransactionGraph({
     super.key,
@@ -21,7 +20,6 @@ class MonthwiseTransactionGraph extends StatelessWidget {
     required this.initialYear,
     required this.onYearChanged,
     required this.subtitle,
-    required this.titleColor,
     required this.bar1Color,
     required this.bar2Color,
   });
@@ -74,7 +72,7 @@ class MonthwiseTransactionGraph extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [bar1Color.withOpacity(0.85), bar2Color.withOpacity(0.6)],
+              colors: [bar1Color, bar2Color],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -187,10 +185,10 @@ class MonthwiseTransactionGraph extends StatelessWidget {
                     },
                   ),
                 ),
-                rightTitles: AxisTitles(
+                rightTitles: const AxisTitles(
                   sideTitles: SideTitles(showTitles: false),
                 ),
-                topTitles: AxisTitles(
+                topTitles: const AxisTitles(
                   sideTitles: SideTitles(showTitles: false),
                 ),
               ),

@@ -74,7 +74,7 @@ class _MonthwiseUserGraphState extends State<MonthwiseUserGraph> {
         Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue.shade700, Colors.lightBlue.shade300],
+              colors: [widget.bar1Color, widget.bar2Color],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),

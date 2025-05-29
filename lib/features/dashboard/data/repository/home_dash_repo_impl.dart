@@ -6,6 +6,8 @@ import 'package:maxwealth_distributor_app/features/dashboard/domain/repository/h
 
 import '../../../../core/api/api_call_with_error.dart';
 import '../../../../core/entities/app_error.dart';
+import '../models/dash_aum_report_graph_response_model.dart';
+import '../models/dash_monthwise_invester_details_graph_response_model.dart';
 import '../models/dash_monthwise_sip_details_graph_response_model.dart';
 import '../models/dash_monthwise_trans_details_graph_response_model.dart';
 import '../models/dash_monthwise_user_details_graph_response_model.dart';
@@ -41,14 +43,14 @@ class HomeDashRepoImpl implements HomeDashRepo {
   }
 
   @override
-  Future<Either<AppError, DashMonthwiseUserDetailsGraphModel>>
+  Future<Either<AppError, DashMonthwiseInvesterDetailsGraphModel>>
       dashMonthwiseInvesterDetailsGraphData(Map<String, dynamic> params) {
     return ApiCallWithError.call(
       () async {
-        final DashMonthwiseUserDetailsGraphModel
-            dashMonthwiseUserDetailsGraphModel = await _homeDashApiService
+        final DashMonthwiseInvesterDetailsGraphModel
+            dashMonthwiseInvesterDetailsGraphModel = await _homeDashApiService
                 .dashMonthwiseInvesterDetailsGraphData(params);
-        return dashMonthwiseUserDetailsGraphModel;
+        return dashMonthwiseInvesterDetailsGraphModel;
       },
     );
   }
@@ -88,6 +90,18 @@ class HomeDashRepoImpl implements HomeDashRepo {
             dashMonthwiseSipDetailsGraphModel =
             await _homeDashApiService.dashMonthwiseSipDetailsGraphData(params);
         return dashMonthwiseSipDetailsGraphModel;
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, DashAumReportGraphResponseModel>> dashAumReportGraph(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        final DashAumReportGraphResponseModel dashAumReportGraphResponseModel =
+            await _homeDashApiService.dashAumReportGraph(params);
+        return dashAumReportGraphResponseModel;
       },
     );
   }

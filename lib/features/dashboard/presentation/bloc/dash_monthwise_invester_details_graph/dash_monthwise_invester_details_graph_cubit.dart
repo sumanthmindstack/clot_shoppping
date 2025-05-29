@@ -4,6 +4,7 @@ import 'package:injectable/injectable.dart';
 import 'package:maxwealth_distributor_app/features/dashboard/domain/entities/params/dash_monthwise_user_details_graph_params.dart';
 
 import '../../../../../core/entities/app_error.dart';
+import '../../../domain/entities/dash_monthwise_invester_details_graph_entity.dart';
 import '../../../domain/entities/dash_monthwise_user_details_graph_entity.dart';
 import '../../../domain/usecase/dash_monthwise_invester_details_graph_usecase.dart';
 

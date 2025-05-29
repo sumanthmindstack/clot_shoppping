@@ -82,6 +82,8 @@ import '../features/dashboard/data/data_source/home_dash_api_service.dart'
 import '../features/dashboard/data/repository/home_dash_repo_impl.dart'
     as _i429;
 import '../features/dashboard/domain/repository/home_dash_repo.dart' as _i157;
+import '../features/dashboard/domain/usecase/dash_aum_report_graph_usecase.dart'
+    as _i261;
 import '../features/dashboard/domain/usecase/dash_monthwise_invester_details_graph_usecase.dart'
     as _i675;
 import '../features/dashboard/domain/usecase/dash_monthwise_sip_details_graph_usecase.dart'
@@ -94,6 +96,8 @@ import '../features/dashboard/domain/usecase/dashboard_data_count_usecase.dart'
     as _i559;
 import '../features/dashboard/domain/usecase/trans_typewise_returns_usecase.dart'
     as _i871;
+import '../features/dashboard/presentation/bloc/dash_aum_report_graph/dash_aum_report_graph_cubit.dart'
+    as _i511;
 import '../features/dashboard/presentation/bloc/dash_monthwise_invester_details_graph/dash_monthwise_invester_details_graph_cubit.dart'
     as _i641;
 import '../features/dashboard/presentation/bloc/dash_monthwise_sip_details_graph/dash_monthwise_sip_details_graph_cubit.dart'
@@ -159,6 +163,8 @@ _i174.GetIt $initGetIt(
       () => _i429.HomeDashRepoImpl(gh<_i576.HomeDashApiService>()));
   gh.factory<_i559.DashboardDataCountUsecase>(
       () => _i559.DashboardDataCountUsecase(gh<_i157.HomeDashRepo>()));
+  gh.factory<_i261.DashAumReportGraphUsecase>(
+      () => _i261.DashAumReportGraphUsecase(gh<_i157.HomeDashRepo>()));
   gh.factory<_i675.DashMonthwiseInvesterDetailsGraphUsecase>(() =>
       _i675.DashMonthwiseInvesterDetailsGraphUsecase(gh<_i157.HomeDashRepo>()));
   gh.factory<_i689.DashMonthwiseSipDetailsGraphUsecase>(() =>
@@ -205,6 +211,8 @@ _i174.GetIt $initGetIt(
       () => _i445.ReGenerateOtpCubit(gh<_i117.GenerateOtpUsecase>()));
   gh.factory<_i434.DashboardDataCountCubit>(() =>
       _i434.DashboardDataCountCubit(gh<_i559.DashboardDataCountUsecase>()));
+  gh.factory<_i511.DashAumReportGraphCubit>(() =>
+      _i511.DashAumReportGraphCubit(gh<_i261.DashAumReportGraphUsecase>()));
   gh.factory<_i178.DashMonthwiseUserDetailsGraphCubit>(() =>
       _i178.DashMonthwiseUserDetailsGraphCubit(
           gh<_i780.DashMonthwiseUserDetailsGraphUsecase>()));

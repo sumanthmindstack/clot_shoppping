@@ -15,7 +15,7 @@ class DashMonthwiseInvesterDetailsGraphLoadingState
 
 class DashMonthwiseInvesterDetailsGraphSuccessState
     extends DashMonthwiseInvesterDetailsGraphState {
-  final DashMonthwiseUserDetailsGraphEntity graphData;
+  final DashMonthwiseInvesterDetailsGraphEntity graphData;
 
   const DashMonthwiseInvesterDetailsGraphSuccessState(this.graphData);
 
