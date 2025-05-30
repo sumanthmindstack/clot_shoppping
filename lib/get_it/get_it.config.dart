@@ -112,6 +112,14 @@ import '../features/dashboard/presentation/bloc/selected_type/selected_type_cubi
     as _i211;
 import '../features/dashboard/presentation/bloc/trans_typewise_returns/trans_typewise_returns_cubit.dart'
     as _i977;
+import '../features/investers/data/data_source/invester_api_service.dart'
+    as _i348;
+import '../features/investers/data/repository/invester_repo_impl.dart' as _i184;
+import '../features/investers/domain/repository/invester_repo.dart' as _i823;
+import '../features/investers/domain/usecase/get_invester_list_usecase.dart'
+    as _i220;
+import '../features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart'
+    as _i612;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i174.GetIt $initGetIt(
@@ -157,6 +165,10 @@ _i174.GetIt $initGetIt(
       ));
   gh.lazySingleton<_i576.HomeDashApiService>(
       () => _i576.HomeDashApiServiceImpl(gh<_i424.ApiClient>()));
+  gh.lazySingleton<_i348.InvesterApiService>(
+      () => _i348.InvesterApiServiceImpl(gh<_i424.ApiClient>()));
+  gh.lazySingleton<_i823.InvesterRepo>(
+      () => _i184.InvesterRepoImpl(gh<_i348.InvesterApiService>()));
   gh.lazySingleton<_i152.AuthApiServices>(
       () => _i152.AuthApiServiceIMpl(gh<_i424.ApiClient>()));
   gh.lazySingleton<_i157.HomeDashRepo>(
@@ -222,6 +234,8 @@ _i174.GetIt $initGetIt(
       () => _i776.RegisterUserCubit(gh<_i813.RegisterUserUsecase>()));
   gh.factory<_i996.GetEuinDetailsCubit>(
       () => _i996.GetEuinDetailsCubit(gh<_i646.GetEUINDetailsUsecase>()));
+  gh.factory<_i220.GetInvesterListUsecase>(
+      () => _i220.GetInvesterListUsecase(gh<_i823.InvesterRepo>()));
   gh.factory<_i692.VerifyOtpCubit>(
       () => _i692.VerifyOtpCubit(gh<_i70.VerifyOtpUsecase>()));
   gh.factory<_i104.RiaCubit>(() => _i104.RiaCubit(gh<_i1046.RiaUsecase>()));
@@ -253,6 +267,8 @@ _i174.GetIt $initGetIt(
       _i977.TransTypewiseReturnsCubit(gh<_i871.TransTypewiseReturnsUsecase>()));
   gh.factory<_i124.RiaBankCubit>(
       () => _i124.RiaBankCubit(gh<_i348.RiaBankUsecase>()));
+  gh.factory<_i612.GetInvesterListCubit>(
+      () => _i612.GetInvesterListCubit(gh<_i220.GetInvesterListUsecase>()));
   return getIt;
 }
 

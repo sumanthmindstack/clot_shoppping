@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Formatters {
@@ -64,5 +65,41 @@ class Formatters {
       decimalDigits: 2,
     );
     return formatter.format(number);
+  }
+
+  Color getStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'submitted':
+        return Colors.green;
+      case 'rejected':
+        return Colors.red;
+      case 'pending':
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  String getStatusLabel(String status) {
+    switch (status.toLowerCase()) {
+      case 'submitted':
+        return 'Successful';
+      case 'rejected':
+        return 'Rejected';
+      case 'pending':
+        return 'Pending';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  /// Converts ISO 8601 date string to 'dd-MMM-yyyy HH:mm:ss' format.
+  String formatIsoToReadableDate(String isoString) {
+    try {
+      final dateTime = DateTime.parse(isoString).toLocal();
+      return DateFormat('dd-MMM-yyyy HH:mm:ss').format(dateTime);
+    } catch (e) {
+      return isoString; // return original if parsing fails
+    }
   }
 }

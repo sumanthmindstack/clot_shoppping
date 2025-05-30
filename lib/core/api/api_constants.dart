@@ -32,4 +32,7 @@ class ApiConstants {
       "/transactions/transaction_type_wise_returns";
   static const String dashMonthWiseSipDetailsEndPoint =
       "/transactions/total_transaction_per_year";
+
+  //investor page apis
+  static const String getInvestersList = "/admin/onboarding/search";
 }

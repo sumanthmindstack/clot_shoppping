@@ -32,6 +32,7 @@ import 'features/dashboard/presentation/bloc/dash_monthwise_user_details_graph/d
 import 'features/dashboard/presentation/bloc/dashboard_data_count/dashboard_data_count_cubit.dart';
 import 'features/dashboard/presentation/bloc/selected_type/selected_type_cubit.dart';
 import 'features/dashboard/presentation/bloc/trans_typewise_returns/trans_typewise_returns_cubit.dart';
+import 'features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart';
 import 'get_it/get_it.dart';
 
 class MaxWealthDistributor extends StatefulWidget {
@@ -97,6 +98,7 @@ class _MaxWealthDistributorState extends State<MaxWealthDistributor> {
                 getIt<DashMonthwiseInvesterDetailsGraphCubit>()),
         BlocProvider(create: (context) => getIt<SelectedTypeCubit>()),
         BlocProvider(create: (context) => getIt<DashAumReportGraphCubit>()),
+        BlocProvider(create: (context) => getIt<GetInvesterListCubit>()),
       ],
       child: MaterialApp(
           title: "Maxwealth Distributor",
