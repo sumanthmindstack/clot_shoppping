@@ -25,7 +25,10 @@ class HomeDashTabScreen extends StatefulWidget {
   _HomeDashTabScreenState createState() => _HomeDashTabScreenState();
 }
 
-class _HomeDashTabScreenState extends State<HomeDashTabScreen> {
+class _HomeDashTabScreenState extends State<HomeDashTabScreen>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
   List<String> _userMonths = [];
   List<double> _userValues = [];
   List<String> _transMonths = [];
@@ -45,6 +48,7 @@ class _HomeDashTabScreenState extends State<HomeDashTabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.all(16),

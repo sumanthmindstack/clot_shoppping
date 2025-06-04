@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maxwealth_distributor_app/themes/app_colors.dart';
 
 class CustomDatePicker extends StatefulWidget {
   final String labelText;
@@ -84,6 +85,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
                   decoration: InputDecoration(
                     labelText: widget.labelText,
                     hintText: widget.hintText,
+                    hintStyle: const TextStyle(color: AppColors.black20),
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     border: OutlineInputBorder(

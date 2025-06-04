@@ -170,6 +170,12 @@ class Validators {
     return entityNameExp.hasMatch(name);
   }
 
+  static bool _validateName(String name) {
+    // Allows letters, spaces, &, ., and -; at least 2 characters
+    RegExp nameExp = RegExp(r"^[A-Za-z&.\- ]{2,}$");
+    return nameExp.hasMatch(name);
+  }
+
   static bool _validateWebsite(String website) {
     // Basic regex to validate website URLs (without enforcing https)
     RegExp websiteExp =
@@ -287,6 +293,13 @@ class Validators {
 
     if (!_validatePanNumber(panNumber)) {
       return ValidatorStrings.invalidPanNumberField;
+    }
+    return null;
+  }
+
+  static String? validateUserSelection(String? selection) {
+    if (selection == null || selection.isEmpty) {
+      return ValidatorStrings.userSelectionRequired;
     }
     return null;
   }
@@ -464,6 +477,18 @@ class Validators {
 
     if (!_validateEntityName(name.trim())) {
       return ValidatorStrings.invalidEntityNameField;
+    }
+    return null;
+  }
+
+//validate Account Name
+  static String? validateNameFields(String? name) {
+    if (name == null || name.trim().isEmpty) {
+      return "Account Holder Name is required"; // Or use ValidatorStrings.emptyEntityNameField;
+    }
+
+    if (!_validateName(name.trim())) {
+      return "Please enter a valid Account Holder Name"; // Or use ValidatorStrings.invalidEntityNameField;
     }
     return null;
   }

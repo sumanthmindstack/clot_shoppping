@@ -67,6 +67,13 @@ class Formatters {
     return formatter.format(number);
   }
 
+  String maskAadhaar(String aadhaarNumber) {
+    if (aadhaarNumber.length != 12) {
+      return 'Invalid Aadhaar';
+    }
+    return 'XXXX-XXXX-${aadhaarNumber.substring(8)}';
+  }
+
   Color getStatusColor(String status) {
     switch (status.toLowerCase()) {
       case 'submitted':
@@ -100,6 +107,25 @@ class Formatters {
       return DateFormat('dd-MMM-yyyy HH:mm:ss').format(dateTime);
     } catch (e) {
       return isoString; // return original if parsing fails
+    }
+  }
+
+  String formatIsoToNormalDate(String isoString) {
+    try {
+      final dateTime = DateTime.parse(isoString).toLocal();
+      return DateFormat('dd-MMM-yyyy').format(dateTime); // Time removed
+    } catch (e) {
+      return isoString; // return original if parsing fails
+    }
+  }
+
+  /// Converts ISO 8601 string to 'dd-MM-yyyy' format
+  String formatIsoToDdMmYyyy(String isoString) {
+    try {
+      final dateTime = DateTime.parse(isoString).toLocal();
+      return DateFormat('dd-MM-yyyy').format(dateTime);
+    } catch (e) {
+      return isoString;
     }
   }
 }

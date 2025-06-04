@@ -37,10 +37,8 @@ class AuthApiServiceIMpl implements AuthApiServices {
   AuthApiServiceIMpl(this._client);
   @override
   Future generateOTP(Map<String, dynamic> params) {
-    final response = _client.post(
-      ApiConstants.generateOTPEndPoint,
-      params: params,
-    );
+    final response =
+        _client.post(ApiConstants.generateOTPEndPoint, params: params);
     return response;
   }
 

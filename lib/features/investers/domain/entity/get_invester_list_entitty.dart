@@ -35,11 +35,13 @@ class InvestorEntity {
   final bool isOnboardingComplete;
   final UserEntity user;
   final dynamic createdAt;
+  final dynamic aadhaarNo;
   final List<NomineeEntity> userNomineeDetails;
   final List<AddressEntity> userAddressDetails;
   final List<BankDetailEntity> userBankDetails;
 
   InvestorEntity({
+    required this.aadhaarNo,
     required this.createdAt,
     required this.id,
     required this.isKycCompliant,

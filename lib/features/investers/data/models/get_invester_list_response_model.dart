@@ -21,6 +21,7 @@ class GetInvesterListResponseModel extends GetInvesterListEntity {
 
 class InvestorModel extends InvestorEntity {
   InvestorModel({
+    required super.aadhaarNo,
     required super.createdAt,
     required super.id,
     required super.isKycCompliant,
@@ -58,6 +59,7 @@ class InvestorModel extends InvestorEntity {
 
   factory InvestorModel.fromJson(Map<String, dynamic> json) {
     return InvestorModel(
+      aadhaarNo: json['aadhaar_number'],
       id: json['id'] ?? 0,
       createdAt: json['created_at'] ?? 0,
       isKycCompliant: json['is_kyc_compliant'] ?? false,
@@ -113,6 +115,7 @@ class InvestorModel extends InvestorEntity {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'aadhaar_number': aadhaarNo,
         'is_kyc_compliant': isKycCompliant,
         'pan': pan,
         'full_name': fullName,

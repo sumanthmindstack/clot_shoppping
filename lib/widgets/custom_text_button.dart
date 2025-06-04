@@ -12,8 +12,8 @@ class CustomTextButton extends StatelessWidget {
     required this.text,
     this.widthFactor = 0.2,
     this.onTap,
-    this.backgroundColor = const Color(0xFFE0E0E0), // AppColors.borderGrey
-    this.textColor = const Color(0xFF6200EE), // AppColors.primaryColor
+    this.backgroundColor = const Color(0xFFE0E0E0),
+    this.textColor = const Color(0xFF6200EE),
   });
 
   @override

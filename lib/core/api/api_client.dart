@@ -41,48 +41,7 @@ class ApiClient {
       debugPrint("\n\n\nClientResponse :${response.data}", wrapWidth: 2000);
       return response.data;
     } on DioException catch (e) {
-      logError(_h, 'Dio Error: ${e.response?.data}');
-      logErrorObject(_h, e, e.message ?? "");
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout) {
-        throw TimeoutException(e.message);
-      }
-      if (e.type == DioExceptionType.unknown) {
-        if (e.error!.toString().contains('SocketException')) {
-          throw const SocketException('');
-        }
-      }
-      if (e.type == DioExceptionType.badResponse) {
-        if (e.response?.statusCode == 102) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 502) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 401) {
-          //navigationKey.currentState!.pushReplacementNamed(Routes.logout);
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 400) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-      }
-      if (e.response?.data is Map<String, dynamic>) {
-        throw CustomException(
-            errorCode: e.response?.statusCode,
-            errorMessage: e.response?.data['message'] ??
-                e.response?.data['error'] ??
-                e.response?.statusMessage);
-      }
-      throw CustomException(
-          errorCode: e.response?.statusCode,
-          errorMessage: e.response?.data['message'] ??
-              e.response?.data['error'] ??
-              e.response?.statusMessage);
+      _handleDioException(e);
     }
   }
 
@@ -90,7 +49,7 @@ class ApiClient {
     String path, {
     dynamic params,
     Map<String, dynamic>? queryParams,
-    bool requiresToken = true,
+    bool requiresToken = false,
     bool isFormData = false,
     FormData? formData,
   }) async {
@@ -107,73 +66,17 @@ class ApiClient {
         options: Options(
           contentType: isFormData ? Headers.formUrlEncodedContentType : null,
           headers: {
-            // 'Authorization':
-            //     requiresToken ? 'Bearer ${await _tokenService.getToken()}' : '',
+            'Authorization':
+                requiresToken ? 'Bearer ${await _tokenService.getToken()}' : '',
             "tenant_id": "torusmfa"
           },
         ),
       );
       logInfo(_h, 'Status Code : ${response.statusCode}');
       logInfo(_h, 'Response: ${response.data}');
-
       return response.data;
     } on DioException catch (e) {
-      logError(_h, 'Dio Error: ${e.response?.data}');
-      logErrorObject(_h, e, e.message ?? "");
-
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout) {
-        throw TimeoutException(e.message);
-      }
-      if (e.type == DioExceptionType.unknown) {
-        if (e.error!.toString().contains('SocketException')) {
-          throw const SocketException('');
-        }
-      }
-      if (e.type == DioExceptionType.badResponse) {
-        if (e.response?.statusCode == 400) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 401) {
-          //todo implement logout screen and redirect to it
-          //getIt<AppRouter>().navigate(const LogoutRoute());
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 422) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 406) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 102) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 502) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-      }
-      if (e.response?.data is Map<String, dynamic>) {
-        throw CustomException(
-            errorCode: e.response?.statusCode,
-            errorMessage: e.response?.data['error'] ??
-                e.response?.data['error'] ??
-                e.response?.statusMessage);
-      }
-      throw CustomException(
-          errorCode: e.response?.statusCode,
-          errorMessage: e.response?.statusMessage);
+      _handleDioException(e);
     }
   }
 
@@ -206,62 +109,9 @@ class ApiClient {
       );
       logInfo(_h, 'Status Code : ${response.statusCode}');
       logInfo(_h, 'Response: ${response.data}');
-
       return response.data;
     } on DioException catch (e) {
-      logError(_h, 'Dio Error: ${e.response?.data}');
-      logErrorObject(_h, e, e.message ?? "");
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout) {
-        throw TimeoutException(e.message);
-      }
-      if (e.type == DioExceptionType.unknown) {
-        if (e.error!.toString().contains('SocketException')) {
-          throw const SocketException('');
-        }
-      }
-      if (e.type == DioExceptionType.badResponse) {
-        if (e.response?.statusCode == 400) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 401) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 422) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 406) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 102) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 502) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-      }
-      if (e.response?.data is Map<String, dynamic>) {
-        throw CustomException(
-            errorCode: e.response?.statusCode,
-            errorMessage: e.response?.data['error'] ??
-                e.response?.data['error'] ??
-                e.response?.statusMessage);
-      }
-      throw CustomException(
-          errorCode: e.response?.statusCode,
-          errorMessage: e.response?.statusMessage);
+      _handleDioException(e);
     }
   }
 
@@ -296,59 +146,79 @@ class ApiClient {
       logInfo(_h, 'Response: ${response.data}');
       return response.data;
     } on DioException catch (e) {
-      logError(_h, 'Dio Error: ${e.response?.data}');
-      logErrorObject(_h, e, e.message ?? "");
-      if (e.type == DioExceptionType.connectionTimeout ||
-          e.type == DioExceptionType.receiveTimeout) {
-        throw TimeoutException(e.message);
-      }
-      if (e.type == DioExceptionType.unknown) {
-        if (e.error!.toString().contains('SocketException')) {
-          throw const SocketException('');
-        }
-      }
-      if (e.type == DioExceptionType.badResponse) {
-        if (e.response?.statusCode == 400) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 401) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 422) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 406) {
-          throw CustomException(
-              errorCode: e.response?.statusCode,
-              errorMessage: e.response?.data['message'] ??
-                  e.response?.data['error'] ??
-                  e.response?.statusMessage);
-        }
-        if (e.response?.statusCode == 102) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-        if (e.response?.statusCode == 502) {
-          throw CustomException(errorCode: e.response?.statusCode);
-        }
-      }
-      if (e.response?.data is Map<String, dynamic>) {
-        throw CustomException(
-            errorCode: e.response?.statusCode,
-            errorMessage: e.response?.data['error'] ??
-                e.response?.data['error'] ??
-                e.response?.statusMessage);
-      }
-      throw CustomException(
-          errorCode: e.response?.statusCode,
-          errorMessage: e.response?.statusMessage);
+      _handleDioException(e);
     }
+  }
+
+  dynamic options(
+    String path, {
+    Map<String, dynamic>? params,
+    Map<String, dynamic>? queryParams,
+    bool requiresToken = true,
+  }) async {
+    logInfo(_h, 'OPTIONS : PATH:$path  queryParams:$queryParams');
+    try {
+      final response = await _dio.request(
+        path,
+        options: Options(
+          method: 'OPTIONS',
+          headers: {
+            'Authorization':
+                requiresToken ? 'Bearer ${await _tokenService.getToken()}' : '',
+            "tenant_id": "torusmfa",
+            if (params != null) ...params,
+          },
+        ),
+        queryParameters: queryParams,
+      );
+      logInfo(_h, 'Status Code : ${response.statusCode}');
+      logInfo(_h, 'Response Headers: ${response.headers}');
+      return response.headers;
+    } on DioException catch (e) {
+      _handleDioException(e);
+    }
+  }
+
+  Never _handleDioException(DioException e) {
+    logError(_h, 'Dio Error: ${e.response?.data}');
+    logErrorObject(_h, e, e.message ?? "");
+
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout) {
+      throw TimeoutException(e.message);
+    }
+
+    if (e.type == DioExceptionType.unknown &&
+        e.error.toString().contains('SocketException')) {
+      throw const SocketException('');
+    }
+
+    if (e.response != null) {
+      final statusCode = e.response?.statusCode;
+      final data = e.response?.data;
+
+      if ([102, 400, 401, 406, 422, 502].contains(statusCode)) {
+        throw CustomException(
+          errorCode: statusCode,
+          errorMessage:
+              data['message'] ?? data['error'] ?? e.response?.statusMessage,
+        );
+      }
+
+      if (data is Map<String, dynamic>) {
+        throw CustomException(
+          errorCode: statusCode,
+          errorMessage:
+              data['message'] ?? data['error'] ?? e.response?.statusMessage,
+        );
+      }
+    }
+
+    throw CustomException(
+      errorCode: e.response?.statusCode,
+      errorMessage: e.response?.data['message'] ??
+          e.response?.data['error'] ??
+          e.response?.statusMessage,
+    );
   }
 }

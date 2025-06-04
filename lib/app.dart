@@ -10,6 +10,7 @@ import 'package:maxwealth_distributor_app/features/auth/presentation/bloc/get_eu
 import 'package:maxwealth_distributor_app/features/auth/presentation/bloc/mfd_flow_check/mfd_flow_check_cubit.dart';
 import 'package:maxwealth_distributor_app/features/auth/presentation/bloc/mfd_patch_address_details/mfd_patch_address_details_cubit.dart';
 import 'package:maxwealth_distributor_app/features/auth/presentation/bloc/register_user/register_user_cubit.dart';
+import 'package:maxwealth_distributor_app/features/investers/presentation/bloc/add_new_bank/add_new_bank_cubit.dart';
 import 'config/routes/app_router.dart';
 import 'features/auth/presentation/bloc/address_corres_detail_selected/address_corres_detail_selected_cubit.dart';
 import 'features/auth/presentation/bloc/auth_user/auth_user_cubit.dart';
@@ -32,7 +33,20 @@ import 'features/dashboard/presentation/bloc/dash_monthwise_user_details_graph/d
 import 'features/dashboard/presentation/bloc/dashboard_data_count/dashboard_data_count_cubit.dart';
 import 'features/dashboard/presentation/bloc/selected_type/selected_type_cubit.dart';
 import 'features/dashboard/presentation/bloc/trans_typewise_returns/trans_typewise_returns_cubit.dart';
+import 'features/investers/presentation/bloc/account_summary_data/account_summary_data_cubit.dart';
+import 'features/investers/presentation/bloc/change_primary_bank/change_primary_bank_cubit.dart';
+import 'features/investers/presentation/bloc/check_kyc/check_kyc_cubit.dart';
+import 'features/investers/presentation/bloc/edit_invester_details/edit_invester_details_cubit.dart';
 import 'features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart';
+import 'features/investers/presentation/bloc/get_kyc_details/get_kyc_details_cubit.dart';
+import 'features/investers/presentation/bloc/get_kyc_user_list/get_kyc_user_list_cubit.dart';
+import 'features/investers/presentation/bloc/get_lumpsum_data/get_lumpsum_data_cubit.dart';
+import 'features/investers/presentation/bloc/input_selection/input_selection_cubit.dart';
+import 'features/investers/presentation/bloc/investor_profile_data/investor_profile_data_cubit.dart';
+import 'features/investers/presentation/bloc/portfolio_analysis/portfolio_analysis_cubit.dart';
+import 'features/investers/presentation/bloc/portfolio_analysis_graph_data/portfolio_analysis_graph_data_cubit.dart';
+import 'features/investers/presentation/bloc/selected_user/selected_user_cubit.dart';
+import 'features/investers/presentation/bloc/show_kyc_message/show_kyc_message_cubit.dart';
 import 'get_it/get_it.dart';
 
 class MaxWealthDistributor extends StatefulWidget {
@@ -99,6 +113,21 @@ class _MaxWealthDistributorState extends State<MaxWealthDistributor> {
         BlocProvider(create: (context) => getIt<SelectedTypeCubit>()),
         BlocProvider(create: (context) => getIt<DashAumReportGraphCubit>()),
         BlocProvider(create: (context) => getIt<GetInvesterListCubit>()),
+        BlocProvider(create: (context) => getIt<GetKycUserListCubit>()),
+        BlocProvider(create: (context) => getIt<CheckKycCubit>()),
+        BlocProvider(create: (context) => getIt<GetKycDetailsCubit>()),
+        BlocProvider(create: (context) => getIt<KycMessageCubit>()),
+        BlocProvider(create: (context) => getIt<InputSelectionCubit>()),
+        BlocProvider(create: (context) => getIt<SelectedUserCubit>()),
+        BlocProvider(create: (context) => getIt<InvesterProfileDataCubit>()),
+        BlocProvider(create: (context) => getIt<EditInvesterDetailsCubit>()),
+        BlocProvider(create: (context) => getIt<ChangePrimaryBankCubit>()),
+        BlocProvider(create: (context) => getIt<AddNewBankCubit>()),
+        BlocProvider(
+            create: (context) => getIt<PortfolioAnalysisGraphDataCubit>()),
+        BlocProvider(create: (context) => getIt<PortfolioAnalysisCubit>()),
+        BlocProvider(create: (context) => getIt<AccountSummaryDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetLumpsumDataCubit>()),
       ],
       child: MaterialApp(
           title: "Maxwealth Distributor",

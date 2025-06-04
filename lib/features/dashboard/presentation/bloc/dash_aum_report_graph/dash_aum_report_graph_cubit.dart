@@ -13,12 +13,18 @@ part 'dash_aum_report_graph_state.dart';
 class DashAumReportGraphCubit extends Cubit<DashAumReportGraphState> {
   final DashAumReportGraphUsecase _dashAumReportGraphUsecase;
 
+  DashAumReportGraphState? _previousState;
+
   DashAumReportGraphCubit(this._dashAumReportGraphUsecase)
       : super(DashAumReportGraphInitialState());
+
+  DashAumReportGraphState? get previousState => _previousState;
 
   void fetchAumReportGraph({
     required int year,
   }) async {
+    _previousState = state;
+
     emit(DashAumReportGraphLoadingState());
 
     final params = DashMonthwiseTransDetailsGraphParams(year: year);

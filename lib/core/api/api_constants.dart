@@ -35,4 +35,17 @@ class ApiConstants {
 
   //investor page apis
   static const String getInvestersList = "/admin/onboarding/search";
+  static const String getKycUserList = "/admin/users";
+  static const String checkKyCEndpoint = "/onboarding/check_kyc";
+  static const String getKycDetailsEndpoint = "/onboarding/get_kyc_details";
+  static const String getInvesterProfileDataEndpoint = "/admin/onboarding";
+  static const String editInvesterEndpoint = "/onboarding/user_details";
+  static const String changePrimaryBankEndpoint = "/bank/change_primary_bank";
+  static const String addNewBankEndpoint = "/bank/add_additional_bank";
+  static const String portFolioSummaryEndpoint =
+      "/portfolio/portfolio_analysis";
+  static const String portFolioGraphDataEndpoint = "/portfolio/returns_graph";
+  static const String accountSummaryDataEndpoint =
+      "/transactions/investment_account_wise_returns";
+  static const String getLumpsumDataEndpoint = "/order-status/lumpsum";
 }

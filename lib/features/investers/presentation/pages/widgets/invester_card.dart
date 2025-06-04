@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:animated_search_bar/animated_search_bar.dart';
 import 'package:maxwealth_distributor_app/common/formatters.dart';
 import 'package:maxwealth_distributor_app/features/investers/domain/entity/get_invester_list_entitty.dart';
 
@@ -39,7 +38,7 @@ class _InvestorCardState extends State<InvestorCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 10),
                     _buildHeader(),
                     const SizedBox(height: 12),
                     const Divider(height: 1),
@@ -122,6 +121,7 @@ class _InvestorCardState extends State<InvestorCard> {
 
   Widget _buildFooter() {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,6 +141,9 @@ class _InvestorCardState extends State<InvestorCard> {
             _buildActionButton(),
           ],
         ),
+        _InfoItem(
+            icon: Icons.fingerprint,
+            text: "XXXX-XXXX-${widget.data.aadhaarNo ?? "----"}"),
       ],
     );
   }
@@ -149,18 +152,18 @@ class _InvestorCardState extends State<InvestorCard> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: const BoxDecoration(
-        color: AppColors.secondaryGrey,
+        color: AppColors.borderGrey,
         borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
       child: const Text(
         "Action",
-        style: TextStyle(color: AppColors.pureWhite),
+        style: TextStyle(color: AppColors.black20),
       ),
     );
   }
 
   BoxDecoration get _cardBoxDecoration => BoxDecoration(
-        color: AppColors.borderGrey,
+        color: AppColors.pureWhite,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(

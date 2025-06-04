@@ -12,77 +12,42 @@ part 'get_invester_list_state.dart';
 @injectable
 class GetInvesterListCubit extends Cubit<GetInvesterListState> {
   final GetInvesterListUsecase _getInvesterListUsecase;
-
-  int _currentPage = 1;
-  final int _limit = 10;
-  bool _hasReachedMax = false;
   List<InvestorEntity> _investors = [];
-  String? _currentSearch;
 
   GetInvesterListCubit(this._getInvesterListUsecase)
       : super(GetInvesterListInitialState());
 
-  // Public getters
-  List<InvestorEntity> get investors => _investors;
-  bool get hasReachedMax => _hasReachedMax;
-
-  Future<void> fetchInvesterList({
-    bool loadMore = false,
+  void fetchInvesterList({
+    required int page,
+    required int limit,
     String? searchData,
   }) async {
-    // Reset pagination if it's a new search
-    if (searchData != null && searchData != _currentSearch) {
-      _currentPage = 1;
-      _hasReachedMax = false;
-      _investors = [];
-      _currentSearch = searchData;
+    if (page == 1) {
+      emit(GetInvesterListLoadingState());
+      _investors.clear();
     }
 
-    // Don't load more if we've reached the end
-    if (loadMore && _hasReachedMax) return;
+    final params = GetInvesterListParams(
+      page: page,
+      limit: limit,
+      searchData: searchData ?? "",
+    );
 
-    try {
-      emit(loadMore
-          ? GetInvesterListLoadingState()
-          : GetInvesterListLoadingState());
+    final response = await _getInvesterListUsecase(params);
 
-      final params = GetInvesterListParams(
-        page: _currentPage,
-        limit: _limit,
-        searchData: searchData ?? _currentSearch ?? "",
-      );
-
-      final response = await _getInvesterListUsecase(params);
-
-      response.fold(
-        (l) => emit(GetInvesterListFailureState(
+    response.fold(
+      (l) => emit(
+        GetInvesterListFailureState(
           errorType: l.errorType,
           errorMessage: l.error,
-        )),
-        (r) {
-          _currentPage++;
-          _hasReachedMax = r.data.length < _limit;
-          _investors.addAll(r.data);
-
-          emit(GetInvesterListSuccessState(
-            getInvesterListEntity: r,
-            investors: List.of(_investors),
-            hasReachedMax: _hasReachedMax,
-          ));
-        },
-      );
-    } catch (e) {
-      emit(GetInvesterListFailureState(
-        errorType: AppErrorType.api,
-        errorMessage: e.toString(),
-      ));
-    }
-  }
-
-  void resetPagination() {
-    _currentPage = 1;
-    _hasReachedMax = false;
-    _investors = [];
-    _currentSearch = null;
+        ),
+      ),
+      (r) {
+        _investors.addAll(r.data);
+        emit(GetInvesterListSuccessState(
+          GetInvesterListEntity(data: List.from(_investors)),
+        ));
+      },
+    );
   }
 }

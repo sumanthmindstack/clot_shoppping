@@ -236,6 +236,9 @@ class ValidatorStrings {
 
   static const String emptyMpinField = 'Please enter your MPIN.';
   static const String invalidMpinField = 'MPIN must be exactly 4 digits.';
+
+  //user selection
+  static const String userSelectionRequired = 'User selection is required';
 }
 
 class ARNValidatorStrings {

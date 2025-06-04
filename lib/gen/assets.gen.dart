@@ -25,6 +25,10 @@ class $AssetsImagesGen {
   SvgGenImage get investerImage =>
       const SvgGenImage('assets/images/invester_image.svg');
 
+  /// File path: assets/images/kyc_check_image.svg
+  SvgGenImage get kycCheckImage =>
+      const SvgGenImage('assets/images/kyc_check_image.svg');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
@@ -52,6 +56,7 @@ class $AssetsImagesGen {
         accountVerfied,
         accountVerifiedImage,
         investerImage,
+        kycCheckImage,
         logo,
         mpinLogo,
         totalAumImage,

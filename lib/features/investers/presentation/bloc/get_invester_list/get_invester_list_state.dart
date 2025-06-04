@@ -13,16 +13,11 @@ class GetInvesterListLoadingState extends GetInvesterListState {}
 
 class GetInvesterListSuccessState extends GetInvesterListState {
   final GetInvesterListEntity getInvesterListEntity;
-  final List<InvestorEntity> investors;
-  final bool hasReachedMax;
 
-  const GetInvesterListSuccessState(
-      {required this.investors,
-      required this.hasReachedMax,
-      required this.getInvesterListEntity});
+  const GetInvesterListSuccessState(this.getInvesterListEntity);
 
   @override
-  List<Object> get props => [getInvesterListEntity, investors, hasReachedMax];
+  List<Object> get props => [getInvesterListEntity];
 }
 
 class GetInvesterListFailureState extends GetInvesterListState {

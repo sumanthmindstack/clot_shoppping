@@ -103,10 +103,13 @@ class _IntialPageState extends State<IntialPage> {
       },
       builder: (context, state) {
         if (state is AuthUserLoadingState) {
-          return const Center(
-              child: CircularProgressIndicator(
-            color: AppColors.primaryColor,
-          ));
+          return const Scaffold(
+            backgroundColor: AppColors.pureWhite,
+            body: Center(
+                child: CircularProgressIndicator(
+              color: AppColors.primaryColor,
+            )),
+          );
         }
         if (state is AuthUserSuccessState) {
           AuthBiometric().authenticateWithBiometrics(context);

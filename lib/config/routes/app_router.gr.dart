@@ -15,6 +15,16 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AddNewBankRoute.name: (routeData) {
+      final args = routeData.argsAs<AddNewBankRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AddNewBankPage(
+          key: args.key,
+          userId: args.userId,
+        ),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -31,6 +41,18 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const IntialPage(),
+      );
+    },
+    InvestorProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<InvestorProfileRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: InvestorProfilePage(
+          key: args.key,
+          userId: args.userId,
+          index: args.index,
+          bankId: args.bankId,
+        ),
       );
     },
     LoginRoute.name: (routeData) {
@@ -82,6 +104,44 @@ abstract class _$AppRouter extends RootStackRouter {
 }
 
 /// generated route for
+/// [AddNewBankPage]
+class AddNewBankRoute extends PageRouteInfo<AddNewBankRouteArgs> {
+  AddNewBankRoute({
+    Key? key,
+    required int userId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AddNewBankRoute.name,
+          args: AddNewBankRouteArgs(
+            key: key,
+            userId: userId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AddNewBankRoute';
+
+  static const PageInfo<AddNewBankRouteArgs> page =
+      PageInfo<AddNewBankRouteArgs>(name);
+}
+
+class AddNewBankRouteArgs {
+  const AddNewBankRouteArgs({
+    this.key,
+    required this.userId,
+  });
+
+  final Key? key;
+
+  final int userId;
+
+  @override
+  String toString() {
+    return 'AddNewBankRouteArgs{key: $key, userId: $userId}';
+  }
+}
+
+/// generated route for
 /// [DashboardScreen]
 class DashboardRoute extends PageRouteInfo<void> {
   const DashboardRoute({List<PageRouteInfo>? children})
@@ -121,6 +181,54 @@ class IntialRoute extends PageRouteInfo<void> {
   static const String name = 'IntialRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [InvestorProfilePage]
+class InvestorProfileRoute extends PageRouteInfo<InvestorProfileRouteArgs> {
+  InvestorProfileRoute({
+    Key? key,
+    required int userId,
+    required int index,
+    required List<BankDetailEntity> bankId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          InvestorProfileRoute.name,
+          args: InvestorProfileRouteArgs(
+            key: key,
+            userId: userId,
+            index: index,
+            bankId: bankId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'InvestorProfileRoute';
+
+  static const PageInfo<InvestorProfileRouteArgs> page =
+      PageInfo<InvestorProfileRouteArgs>(name);
+}
+
+class InvestorProfileRouteArgs {
+  const InvestorProfileRouteArgs({
+    this.key,
+    required this.userId,
+    required this.index,
+    required this.bankId,
+  });
+
+  final Key? key;
+
+  final int userId;
+
+  final int index;
+
+  final List<BankDetailEntity> bankId;
+
+  @override
+  String toString() {
+    return 'InvestorProfileRouteArgs{key: $key, userId: $userId, index: $index, bankId: $bankId}';
+  }
 }
 
 /// generated route for
