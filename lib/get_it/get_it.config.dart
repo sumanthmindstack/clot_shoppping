@@ -124,6 +124,12 @@ import '../features/investers/domain/usecase/change_primary_bank_usecase.dart'
 import '../features/investers/domain/usecase/check_kyc_usecase.dart' as _i751;
 import '../features/investers/domain/usecase/edit_invester_details_usecase.dart'
     as _i792;
+import '../features/investers/domain/usecase/get_all_bank_usecase.dart'
+    as _i1054;
+import '../features/investers/domain/usecase/get_bank_mandates_usecase.dart'
+    as _i522;
+import '../features/investers/domain/usecase/get_capital_gains_usecase.dart'
+    as _i904;
 import '../features/investers/domain/usecase/get_holding_details_usecase.dart'
     as _i493;
 import '../features/investers/domain/usecase/get_invester_list_usecase.dart'
@@ -136,6 +142,8 @@ import '../features/investers/domain/usecase/get_lumpsum_data_usecase.dart'
     as _i712;
 import '../features/investers/domain/usecase/get_redeemption_data_usecase.dart'
     as _i115;
+import '../features/investers/domain/usecase/get_scheme_wise_usecase.dart'
+    as _i567;
 import '../features/investers/domain/usecase/get_sip_data_usecase.dart'
     as _i973;
 import '../features/investers/domain/usecase/get_stp_data_usecase.dart'
@@ -154,6 +162,8 @@ import '../features/investers/domain/usecase/portfolio_analysis_graph_data_useca
     as _i936;
 import '../features/investers/domain/usecase/portfolio_analysis_usecase.dart'
     as _i573;
+import '../features/investers/domain/usecase/post_bank_mandates_usecase.dart'
+    as _i845;
 import '../features/investers/presentation/bloc/account_summary_data/account_summary_data_cubit.dart'
     as _i687;
 import '../features/investers/presentation/bloc/add_new_bank/add_new_bank_cubit.dart'
@@ -164,6 +174,12 @@ import '../features/investers/presentation/bloc/check_kyc/check_kyc_cubit.dart'
     as _i1035;
 import '../features/investers/presentation/bloc/edit_invester_details/edit_invester_details_cubit.dart'
     as _i151;
+import '../features/investers/presentation/bloc/get_all_bank/get_all_bank_cubit.dart'
+    as _i277;
+import '../features/investers/presentation/bloc/get_bank_mandates/get_bank_mandates_cubit.dart'
+    as _i469;
+import '../features/investers/presentation/bloc/get_capital_gains/get_capital_gains_cubit.dart'
+    as _i984;
 import '../features/investers/presentation/bloc/get_holding_details/get_holding_details_cubit.dart'
     as _i655;
 import '../features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart'
@@ -176,6 +192,8 @@ import '../features/investers/presentation/bloc/get_lumpsum_data/get_lumpsum_dat
     as _i967;
 import '../features/investers/presentation/bloc/get_reedemption_data.dart/get_reedemption_data_cubit.dart'
     as _i1041;
+import '../features/investers/presentation/bloc/get_scheme_wise/get_scheme_wise_cubit.dart'
+    as _i466;
 import '../features/investers/presentation/bloc/get_sip_data/get_sip_data_cubit.dart'
     as _i279;
 import '../features/investers/presentation/bloc/get_stp_data.dart/get_stp_data_cubit.dart'
@@ -194,6 +212,8 @@ import '../features/investers/presentation/bloc/portfolio_analysis/portfolio_ana
     as _i42;
 import '../features/investers/presentation/bloc/portfolio_analysis_graph_data/portfolio_analysis_graph_data_cubit.dart'
     as _i513;
+import '../features/investers/presentation/bloc/post_bank_mandates/post_bank_mandates_cubit.dart'
+    as _i1012;
 import '../features/investers/presentation/bloc/selected_user/selected_user_cubit.dart'
     as _i577;
 import '../features/investers/presentation/bloc/show_kyc_message/show_kyc_message_cubit.dart'
@@ -355,6 +375,16 @@ _i174.GetIt $initGetIt(
       () => _i573.PortfolioAnalysisUsecase(gh<_i823.InvesterRepo>()));
   gh.factory<_i263.GetUserGoalsDetailsUsecase>(
       () => _i263.GetUserGoalsDetailsUsecase(gh<_i823.InvesterRepo>()));
+  gh.factory<_i522.GetBankMandatesUsecase>(
+      () => _i522.GetBankMandatesUsecase(gh<_i823.InvesterRepo>()));
+  gh.factory<_i1054.GetAllBankUsecase>(
+      () => _i1054.GetAllBankUsecase(gh<_i823.InvesterRepo>()));
+  gh.factory<_i845.PostBankMandatesUsecase>(
+      () => _i845.PostBankMandatesUsecase(gh<_i823.InvesterRepo>()));
+  gh.factory<_i904.GetCapitalGainsUsecase>(
+      () => _i904.GetCapitalGainsUsecase(gh<_i823.InvesterRepo>()));
+  gh.factory<_i567.GetSchemeWiseUsecase>(
+      () => _i567.GetSchemeWiseUsecase(gh<_i823.InvesterRepo>()));
   gh.factory<_i751.CheckKycUsecase>(
       () => _i751.CheckKycUsecase(gh<_i823.InvesterRepo>()));
   gh.factory<_i199.InvesterProfileDataCubit>(() =>
@@ -362,6 +392,8 @@ _i174.GetIt $initGetIt(
   gh.factory<_i692.VerifyOtpCubit>(
       () => _i692.VerifyOtpCubit(gh<_i70.VerifyOtpUsecase>()));
   gh.factory<_i104.RiaCubit>(() => _i104.RiaCubit(gh<_i1046.RiaUsecase>()));
+  gh.factory<_i1012.PostBankMandatesCubit>(
+      () => _i1012.PostBankMandatesCubit(gh<_i845.PostBankMandatesUsecase>()));
   gh.factory<_i927.ContactDetailsCubit>(
       () => _i927.ContactDetailsCubit(gh<_i1042.ContactDetailsUsecase>()));
   gh.factory<_i160.RiaContactDetailsCubit>(
@@ -388,6 +420,8 @@ _i174.GetIt $initGetIt(
       () => _i279.GetSipDataCubit(gh<_i973.GetSipDataUsecase>()));
   gh.factory<_i462.RiaPatchCubit>(
       () => _i462.RiaPatchCubit(gh<_i431.RiaPatchUsecase>()));
+  gh.factory<_i277.GetAllBankCubit>(
+      () => _i277.GetAllBankCubit(gh<_i1054.GetAllBankUsecase>()));
   gh.factory<_i668.GetKycUserListCubit>(
       () => _i668.GetKycUserListCubit(gh<_i420.GetKycUserListUseCase>()));
   gh.factory<_i822.GetTransactionDetailsCubit>(() =>
@@ -414,10 +448,16 @@ _i174.GetIt $initGetIt(
   gh.factory<_i678.DashMonthwiseSipDetailsGraphCubit>(() =>
       _i678.DashMonthwiseSipDetailsGraphCubit(
           gh<_i689.DashMonthwiseSipDetailsGraphUsecase>()));
+  gh.factory<_i466.GetSchemeWiseCubit>(
+      () => _i466.GetSchemeWiseCubit(gh<_i567.GetSchemeWiseUsecase>()));
   gh.factory<_i977.TransTypewiseReturnsCubit>(() =>
       _i977.TransTypewiseReturnsCubit(gh<_i871.TransTypewiseReturnsUsecase>()));
   gh.factory<_i124.RiaBankCubit>(
       () => _i124.RiaBankCubit(gh<_i348.RiaBankUsecase>()));
+  gh.factory<_i469.GetBankMandatesCubit>(
+      () => _i469.GetBankMandatesCubit(gh<_i522.GetBankMandatesUsecase>()));
+  gh.factory<_i984.GetCapitalGainsCubit>(
+      () => _i984.GetCapitalGainsCubit(gh<_i904.GetCapitalGainsUsecase>()));
   gh.factory<_i1041.GetRedeemDataCubit>(
       () => _i1041.GetRedeemDataCubit(gh<_i115.GetRedeemDataUsecase>()));
   gh.factory<_i1042.GetUserGoalsDetailsCubit>(() =>

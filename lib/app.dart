@@ -37,12 +37,16 @@ import 'features/investers/presentation/bloc/account_summary_data/account_summar
 import 'features/investers/presentation/bloc/change_primary_bank/change_primary_bank_cubit.dart';
 import 'features/investers/presentation/bloc/check_kyc/check_kyc_cubit.dart';
 import 'features/investers/presentation/bloc/edit_invester_details/edit_invester_details_cubit.dart';
+import 'features/investers/presentation/bloc/get_all_bank/get_all_bank_cubit.dart';
+import 'features/investers/presentation/bloc/get_bank_mandates/get_bank_mandates_cubit.dart';
+import 'features/investers/presentation/bloc/get_capital_gains/get_capital_gains_cubit.dart';
 import 'features/investers/presentation/bloc/get_holding_details/get_holding_details_cubit.dart';
 import 'features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart';
 import 'features/investers/presentation/bloc/get_kyc_details/get_kyc_details_cubit.dart';
 import 'features/investers/presentation/bloc/get_kyc_user_list/get_kyc_user_list_cubit.dart';
 import 'features/investers/presentation/bloc/get_lumpsum_data/get_lumpsum_data_cubit.dart';
 import 'features/investers/presentation/bloc/get_reedemption_data.dart/get_reedemption_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_scheme_wise/get_scheme_wise_cubit.dart';
 import 'features/investers/presentation/bloc/get_sip_data/get_sip_data_cubit.dart';
 import 'features/investers/presentation/bloc/get_stp_data.dart/get_stp_data_cubit.dart';
 import 'features/investers/presentation/bloc/get_switch_data/get_switch_data_cubit.dart';
@@ -52,6 +56,7 @@ import 'features/investers/presentation/bloc/input_selection/input_selection_cub
 import 'features/investers/presentation/bloc/investor_profile_data/investor_profile_data_cubit.dart';
 import 'features/investers/presentation/bloc/portfolio_analysis/portfolio_analysis_cubit.dart';
 import 'features/investers/presentation/bloc/portfolio_analysis_graph_data/portfolio_analysis_graph_data_cubit.dart';
+import 'features/investers/presentation/bloc/post_bank_mandates/post_bank_mandates_cubit.dart';
 import 'features/investers/presentation/bloc/selected_user/selected_user_cubit.dart';
 import 'features/investers/presentation/bloc/show_kyc_message/show_kyc_message_cubit.dart';
 import 'features/investers/presentation/bloc/user_goals/get_user_goals_details_cubit.dart';
@@ -144,6 +149,11 @@ class _MaxWealthDistributorState extends State<MaxWealthDistributor> {
         BlocProvider(create: (context) => getIt<GetTransactionDetailsCubit>()),
         BlocProvider(create: (context) => getIt<GetHoldingDetailsCubit>()),
         BlocProvider(create: (context) => getIt<GetUserGoalsDetailsCubit>()),
+        BlocProvider(create: (context) => getIt<GetBankMandatesCubit>()),
+        BlocProvider(create: (context) => getIt<GetAllBankCubit>()),
+        BlocProvider(create: (context) => getIt<PostBankMandatesCubit>()),
+        BlocProvider(create: (context) => getIt<GetCapitalGainsCubit>()),
+        BlocProvider(create: (context) => getIt<GetSchemeWiseCubit>()),
       ],
       child: MaterialApp(
           title: "Maxwealth Distributor",

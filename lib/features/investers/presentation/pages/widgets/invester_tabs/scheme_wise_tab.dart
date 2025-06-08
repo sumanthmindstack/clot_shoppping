@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maxwealth_distributor_app/features/investers/presentation/bloc/get_holding_details/get_holding_details_cubit.dart';
-import 'package:maxwealth_distributor_app/features/investers/presentation/pages/widgets/invester_tabs/widgets/holdings_card.dart';
-
+import 'package:maxwealth_distributor_app/features/investers/presentation/bloc/get_scheme_wise/get_scheme_wise_cubit.dart';
 import '../../../../../../widgets/units_selection_widget.dart';
 import 'widget_shimmers/holding_card_shimmer.dart';
+import 'widgets/scheme_wise_card.dart';
 
-class HoldingsTab extends StatefulWidget {
+class SchemeWiseTab extends StatefulWidget {
   final int userId;
-  const HoldingsTab({super.key, required this.userId});
+  const SchemeWiseTab({super.key, required this.userId});
 
   @override
-  State<HoldingsTab> createState() => _HoldingsTabState();
+  State<SchemeWiseTab> createState() => _SchemeWiseTabState();
 }
 
-class _HoldingsTabState extends State<HoldingsTab> {
+class _SchemeWiseTabState extends State<SchemeWiseTab> {
   final ScrollController _scrollController = ScrollController();
   int currentPage = 1;
   final int limit = 10;
@@ -30,23 +29,23 @@ class _HoldingsTabState extends State<HoldingsTab> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GetHoldingDetailsCubit, GetHoldingDetailsState>(
+    return BlocConsumer<GetSchemeWiseCubit, GetSchemeWiseState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state is GetHoldingDetailsFailureState) {
-          return const Text("No Holdings Yet!");
+        if (state is GetSchemeWiseFailureState) {
+          return const Center(
+              heightFactor: 8, child: Text("No Scheme-wise Holdings Found!"));
         }
-        if (state is GetHoldingDetailsLoadingState) {
+        if (state is GetSchemeWiseLoadingState) {
           return const HoldingsCardShimmer();
         }
-        if (state is GetHoldingDetailsSuccessState) {
-          final totalPages = state.data.pagination.totalPages;
+        if (state is GetSchemeWiseSuccessState) {
+          final totalPages = state.getSchemeWiseEntity.meta?.totalPages;
 
           return Column(
             children: [
@@ -58,24 +57,22 @@ class _HoldingsTabState extends State<HoldingsTab> {
                 itemBuilder: (context, index) {
                   return totalPages == 0
                       ? const Center(
-                          heightFactor: 8, child: Text("No Holdings Yet!"))
+                          heightFactor: 8,
+                          child: Text("No Scheme-wise Holdings Found!"))
                       : Column(
                           children: [
                             const SizedBox(height: 15),
                             _buildScaleSelector(),
                             const SizedBox(height: 10),
                             Column(
-                              children: state.data.data.folios.map((folio) {
-                                return Column(
-                                  children: folio.schemes.map((scheme) {
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: HoldingsCard(
-                                        data: scheme,
-                                        selectedScale: _selectedScale,
-                                      ),
-                                    );
-                                  }).toList(),
+                              children: state.getSchemeWiseEntity.result!
+                                  .map((scheme) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SchemeWiseCard(
+                                    data: scheme,
+                                    selectedScale: _selectedScale,
+                                  ),
                                 );
                               }).toList(),
                             ),
@@ -83,12 +80,13 @@ class _HoldingsTabState extends State<HoldingsTab> {
                         );
                 },
               ),
-              if (totalPages > 1) _buildPagination(totalPages),
+              if (totalPages! > 1) _buildPagination(totalPages),
             ],
           );
         }
 
-        return const Text("No Holdings Yet!");
+        return const Center(
+            heightFactor: 8, child: Text("No Scheme-wise Holdings Found!"));
       },
     );
   }
@@ -97,13 +95,14 @@ class _HoldingsTabState extends State<HoldingsTab> {
     final scales = ['Actual', 'Thousands', 'Lakhs', 'Crores', 'Billion'];
 
     return UnitsSelectionWidget(
-        selectedScale: _selectedScale,
-        onScaleSelected: (value) {
-          setState(() {
-            _selectedScale = value;
-          });
-        },
-        scales: scales);
+      selectedScale: _selectedScale,
+      onScaleSelected: (value) {
+        setState(() {
+          _selectedScale = value;
+        });
+      },
+      scales: scales,
+    );
   }
 
   Widget _buildPagination(int totalPages) {
@@ -154,7 +153,7 @@ class _HoldingsTabState extends State<HoldingsTab> {
 
   void _fetchPage(int page) {
     setState(() => currentPage = page);
-    context.read<GetHoldingDetailsCubit>().fetchHoldingDetails(
+    context.read<GetSchemeWiseCubit>().fetchSchemeWise(
         userId: widget.userId, limit: limit, page: currentPage);
   }
 

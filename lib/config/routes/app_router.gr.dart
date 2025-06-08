@@ -25,6 +25,16 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    AddNewMandateRoute.name: (routeData) {
+      final args = routeData.argsAs<AddNewMandateRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AddNewMandatePage(
+          key: args.key,
+          userId: args.userId,
+        ),
+      );
+    },
     DashboardRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -138,6 +148,44 @@ class AddNewBankRouteArgs {
   @override
   String toString() {
     return 'AddNewBankRouteArgs{key: $key, userId: $userId}';
+  }
+}
+
+/// generated route for
+/// [AddNewMandatePage]
+class AddNewMandateRoute extends PageRouteInfo<AddNewMandateRouteArgs> {
+  AddNewMandateRoute({
+    Key? key,
+    required int userId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AddNewMandateRoute.name,
+          args: AddNewMandateRouteArgs(
+            key: key,
+            userId: userId,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AddNewMandateRoute';
+
+  static const PageInfo<AddNewMandateRouteArgs> page =
+      PageInfo<AddNewMandateRouteArgs>(name);
+}
+
+class AddNewMandateRouteArgs {
+  const AddNewMandateRouteArgs({
+    this.key,
+    required this.userId,
+  });
+
+  final Key? key;
+
+  final int userId;
+
+  @override
+  String toString() {
+    return 'AddNewMandateRouteArgs{key: $key, userId: $userId}';
   }
 }
 

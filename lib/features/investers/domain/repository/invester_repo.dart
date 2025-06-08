@@ -4,11 +4,14 @@ import 'package:maxwealth_distributor_app/features/investers/domain/entity/get_k
 
 import '../../../../core/entities/app_error.dart';
 import '../entity/account_summary_data_entity.dart';
+import '../entity/get_bank_mandates_entity.dart';
+import '../entity/get_capital_gains_entity.dart';
 import '../entity/get_holding_details_entity.dart';
 import '../entity/get_invester_list_entitty.dart';
 import '../entity/get_kyc_details_entity.dart';
 import '../entity/get_lumpsum_data_entity.dart';
 import '../entity/get_redeemption_data_entity.dart';
+import '../entity/get_scheme_wise_entity.dart';
 import '../entity/get_sip_data_entity.dart';
 import '../entity/get_stp_data_entity.dart';
 import '../entity/get_switch_data_entity.dart';
@@ -58,5 +61,14 @@ abstract class InvesterRepo {
   Future<Either<AppError, GetHoldingDetailsEntity>> getHoldingsDetailsData(
       Map<String, dynamic> params);
   Future<Either<AppError, UserGoalsEntity>> getUserGoalsDetailsData(
+      Map<String, dynamic> params);
+  Future<Either<AppError, GetBankMandatesEntity>> getBankMandates(
+      Map<String, dynamic> params);
+  Future<Either<AppError, dynamic>> getAllBank(Map<String, dynamic> params);
+  Future<Either<AppError, GetBankMandatesEntity>> postBankMandates(
+      Map<String, dynamic> params);
+  Future<Either<AppError, GetCapitalGainsEntity>> getCapitalGains(
+      Map<String, dynamic> params);
+  Future<Either<AppError, GetSchemeWiseEntity>> getSchemeWise(
       Map<String, dynamic> params);
 }

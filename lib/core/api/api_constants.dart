@@ -57,4 +57,8 @@ class ApiConstants {
       "/transaction-baskets/order_details";
   static const String getHoldingsDetailsDataEndpoint = "/portfolio/holdings";
   static const String getUserGoalsDataEndpoint = "/usergoals";
+  static const String getBankMandatesEndpoint = "/mandates";
+  static const String getAllBankEndpoint = "/bank/all";
+  static const String getCapitalGainsEndpoint = "/transactions/capitalgains";
+  static const String getSchemeWiseEndpoint = "/transactions/schemewise";
 }

@@ -34,35 +34,38 @@ class _UserGoalsTabState extends State<UserGoalsTab> {
       listener: (context, state) {},
       builder: (context, state) {
         if (state is GetUserGoalsDetailsFailureState) {
-          return const Center(child: Text("No Goals Yet!"));
+          return const Center(heightFactor: 8, child: Text("No Goals Yet!"));
         }
         if (state is GetUserGoalsDetailsLoadingState) {
           return const HoldingsCardShimmer();
         }
         if (state is GetUserGoalsDetailsSuccessState) {
-          return Column(
-            children: [
-              const SizedBox(height: 10),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
-                shrinkWrap: true,
-                itemCount: state.userGoalsEntity.result.length,
-                itemBuilder: (context, index) {
-                  final goal = state.userGoalsEntity.result[index];
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: UserGoalCard(
-                      data: goal,
+          return state.userGoalsEntity.result.isEmpty
+              ? const Center(heightFactor: 8, child: Text("No Goals Yet!"))
+              : Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    ListView.separated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 8),
+                      shrinkWrap: true,
+                      itemCount: state.userGoalsEntity.result.length,
+                      itemBuilder: (context, index) {
+                        final goal = state.userGoalsEntity.result[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: UserGoalCard(
+                            data: goal,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
-            ],
-          );
+                  ],
+                );
         }
 
-        return const Center(child: Text("No Goals Yet!"));
+        return const Center(heightFactor: 8, child: Text("No Goals Yet!"));
       },
     );
   }

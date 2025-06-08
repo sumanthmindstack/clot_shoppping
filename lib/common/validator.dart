@@ -329,6 +329,20 @@ class Validators {
     return null;
   }
 
+// Validate mandate limit
+  static String? validateMandateLimit(String? limit) {
+    if (limit == null || limit.trim().isEmpty) {
+      return ValidatorStrings.emptyMandateLimitField;
+    }
+
+    final parsedLimit = double.tryParse(limit.trim());
+    if (parsedLimit == null || parsedLimit <= 0) {
+      return ValidatorStrings.invalidMandateLimitField;
+    }
+
+    return null;
+  }
+
   static String? validateMpin(String? mpin) {
     if (mpin == null || mpin.trim().isEmpty) {
       return ValidatorStrings.emptyMpinField;

@@ -58,7 +58,7 @@ class _CustomDropdownFieldState extends State<CustomDropdownField> {
         isExpanded: true,
         hint: Text(
           'Select ${config.label}',
-          style: const TextStyle(fontSize: 14, color: Colors.grey),
+          style: const TextStyle(fontSize: 12, color: Colors.grey),
         ),
         iconStyleData: const IconStyleData(
           icon: Icon(

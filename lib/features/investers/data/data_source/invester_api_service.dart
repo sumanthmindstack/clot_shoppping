@@ -4,12 +4,15 @@ import '../../../../core/api/api_client.dart';
 import '../../../../core/api/api_constants.dart';
 import '../models/account_summary_data_response_model.dart';
 import '../models/check_kyc_response_model.dart';
+import '../models/get_bank_mandates_response_model.dart';
+import '../models/get_capital_gains_response_model.dart';
 import '../models/get_holding_details_response_model.dart';
 import '../models/get_invester_list_response_model.dart';
 import '../models/get_kyc_details_response_model.dart';
 import '../models/get_kyc_user_list_response_model.dart';
 import '../models/get_lumpsum_data_response_model.dart';
 import '../models/get_redeemption_data_response_model.dart';
+import '../models/get_scheme_wise_response_model.dart';
 import '../models/get_sip_data_response_model.dart';
 import '../models/get_stp_data_response_model.dart';
 import '../models/get_switch_data_response_model.dart';
@@ -52,6 +55,14 @@ abstract class InvesterApiService {
       Map<String, dynamic> params);
   Future<UserGoalsResponseModel> getUserGoalsDetailsData(
       Map<String, dynamic> params);
+  Future<GetBankMandatesResponseModel> getBankMandates(
+      Map<String, dynamic> params);
+  Future<dynamic> getAllBank(Map<String, dynamic> params);
+  Future<GetBankMandatesResponseModel> postBankMandates(
+      Map<String, dynamic> params);
+  Future<GetCapitalGainsResponseModel> getCapitalGains(
+      Map<String, dynamic> params);
+  Future<GetSchemeWiseResponseModel> getSchemeWise(Map<String, dynamic> params);
 }
 
 @LazySingleton(as: InvesterApiService)
@@ -225,5 +236,44 @@ class InvesterApiServiceImpl implements InvesterApiService {
     final response = await _client.get(ApiConstants.getUserGoalsDataEndpoint,
         queryParameters: params, requiresToken: true);
     return UserGoalsResponseModel.fromJson(response);
+  }
+
+  @override
+  Future<GetBankMandatesResponseModel> getBankMandates(
+      Map<String, dynamic> params) async {
+    final response = await _client.get(ApiConstants.getBankMandatesEndpoint,
+        queryParameters: params, requiresToken: true);
+    return GetBankMandatesResponseModel.fromJson(response);
+  }
+
+  @override
+  Future getAllBank(Map<String, dynamic> params) async {
+    final response = await _client.get(ApiConstants.getBankMandatesEndpoint,
+        queryParameters: params, requiresToken: true);
+    return GetBankMandatesResponseModel.fromJson(response);
+  }
+
+  @override
+  Future<GetBankMandatesResponseModel> postBankMandates(
+      Map<String, dynamic> params) async {
+    final response = await _client.post(ApiConstants.getBankMandatesEndpoint,
+        params: params, requiresToken: true);
+    return GetBankMandatesResponseModel.fromJson(response);
+  }
+
+  @override
+  Future<GetCapitalGainsResponseModel> getCapitalGains(
+      Map<String, dynamic> params) async {
+    final response = await _client.get(ApiConstants.getCapitalGainsEndpoint,
+        queryParameters: params, requiresToken: true);
+    return GetCapitalGainsResponseModel.fromJson(response);
+  }
+
+  @override
+  Future<GetSchemeWiseResponseModel> getSchemeWise(
+      Map<String, dynamic> params) async {
+    final response = await _client.get(ApiConstants.getSchemeWiseEndpoint,
+        queryParameters: params, requiresToken: true);
+    return GetSchemeWiseResponseModel.fromJson(response);
   }
 }

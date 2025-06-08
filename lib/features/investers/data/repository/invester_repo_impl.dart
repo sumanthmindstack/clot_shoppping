@@ -11,12 +11,15 @@ import '../../domain/repository/invester_repo.dart';
 import '../data_source/invester_api_service.dart';
 import '../models/account_summary_data_response_model.dart';
 import '../models/check_kyc_response_model.dart';
+import '../models/get_bank_mandates_response_model.dart';
+import '../models/get_capital_gains_response_model.dart';
 import '../models/get_holding_details_response_model.dart';
 import '../models/get_invester_list_response_model.dart';
 import '../models/get_kyc_details_response_model.dart';
 import '../models/get_kyc_user_list_response_model.dart';
 import '../models/get_lumpsum_data_response_model.dart';
 import '../models/get_redeemption_data_response_model.dart';
+import '../models/get_scheme_wise_response_model.dart';
 import '../models/get_sip_data_response_model.dart';
 import '../models/get_stp_data_response_model.dart';
 import '../models/get_switch_data_response_model.dart';
@@ -235,6 +238,55 @@ class InvesterRepoImpl implements InvesterRepo {
     return ApiCallWithError.call(
       () async {
         return await _investerApiService.getUserGoalsDetailsData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetBankMandatesResponseModel>> getBankMandates(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getBankMandates(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, dynamic>> getAllBank(Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getBankMandates(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetBankMandatesResponseModel>> postBankMandates(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.postBankMandates(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetCapitalGainsResponseModel>> getCapitalGains(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getCapitalGains(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetSchemeWiseResponseModel>> getSchemeWise(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getSchemeWise(params);
       },
     );
   }

@@ -12,6 +12,7 @@ import '../../features/auth/presentation/pages/registration_process_step_page.da
 import '../../features/dashboard/presentation/pages/dashboard_page.dart';
 import '../../features/investers/domain/entity/get_invester_list_entitty.dart';
 import '../../features/investers/presentation/pages/widgets/add_new_bank_page.dart';
+import '../../features/investers/presentation/pages/widgets/add_new_mandate_page.dart';
 import '../../features/investers/presentation/pages/widgets/invester_profile_widget.dart';
 
 part 'app_router.gr.dart';
@@ -32,5 +33,6 @@ class AppRouter extends _$AppRouter {
         AutoRoute(page: DashboardRoute.page, maintainState: true),
         AutoRoute(page: InvestorProfileRoute.page),
         AutoRoute(page: AddNewBankRoute.page),
+        AutoRoute(page: AddNewMandateRoute.page),
       ];
 }

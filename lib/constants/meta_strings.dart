@@ -239,6 +239,11 @@ class ValidatorStrings {
 
   //user selection
   static const String userSelectionRequired = 'User selection is required';
+
+  //validate mandate limit
+  static const String emptyMandateLimitField = 'Please enter mandate limit.';
+  static const String invalidMandateLimitField =
+      'Enter a valid positive number for mandate limit.';
 }
 
 class ARNValidatorStrings {
