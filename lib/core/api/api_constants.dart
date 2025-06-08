@@ -48,4 +48,13 @@ class ApiConstants {
   static const String accountSummaryDataEndpoint =
       "/transactions/investment_account_wise_returns";
   static const String getLumpsumDataEndpoint = "/order-status/lumpsum";
+  static const String getSipDataEndpoint = "/order-status/sip";
+  static const String getSwitchDataEndpoint = "/order-status/switches";
+  static const String getStpDataEndpoint = "/order-status/stp";
+  static const String getSwpDataEndpoint = "/order-status/swp";
+  static const String getRedemptionDataEndpoint = "/order-status/redemption";
+  static const String getTransactionDetailsDataEndpoint =
+      "/transaction-baskets/order_details";
+  static const String getHoldingsDetailsDataEndpoint = "/portfolio/holdings";
+  static const String getUserGoalsDataEndpoint = "/usergoals";
 }

@@ -37,16 +37,24 @@ import 'features/investers/presentation/bloc/account_summary_data/account_summar
 import 'features/investers/presentation/bloc/change_primary_bank/change_primary_bank_cubit.dart';
 import 'features/investers/presentation/bloc/check_kyc/check_kyc_cubit.dart';
 import 'features/investers/presentation/bloc/edit_invester_details/edit_invester_details_cubit.dart';
+import 'features/investers/presentation/bloc/get_holding_details/get_holding_details_cubit.dart';
 import 'features/investers/presentation/bloc/get_invester_list/get_invester_list_cubit.dart';
 import 'features/investers/presentation/bloc/get_kyc_details/get_kyc_details_cubit.dart';
 import 'features/investers/presentation/bloc/get_kyc_user_list/get_kyc_user_list_cubit.dart';
 import 'features/investers/presentation/bloc/get_lumpsum_data/get_lumpsum_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_reedemption_data.dart/get_reedemption_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_sip_data/get_sip_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_stp_data.dart/get_stp_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_switch_data/get_switch_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_swp_data.dart/get_swp_data_cubit.dart';
+import 'features/investers/presentation/bloc/get_transaction_details.dart/get_transaction_details_cubit.dart';
 import 'features/investers/presentation/bloc/input_selection/input_selection_cubit.dart';
 import 'features/investers/presentation/bloc/investor_profile_data/investor_profile_data_cubit.dart';
 import 'features/investers/presentation/bloc/portfolio_analysis/portfolio_analysis_cubit.dart';
 import 'features/investers/presentation/bloc/portfolio_analysis_graph_data/portfolio_analysis_graph_data_cubit.dart';
 import 'features/investers/presentation/bloc/selected_user/selected_user_cubit.dart';
 import 'features/investers/presentation/bloc/show_kyc_message/show_kyc_message_cubit.dart';
+import 'features/investers/presentation/bloc/user_goals/get_user_goals_details_cubit.dart';
 import 'get_it/get_it.dart';
 
 class MaxWealthDistributor extends StatefulWidget {
@@ -128,6 +136,14 @@ class _MaxWealthDistributorState extends State<MaxWealthDistributor> {
         BlocProvider(create: (context) => getIt<PortfolioAnalysisCubit>()),
         BlocProvider(create: (context) => getIt<AccountSummaryDataCubit>()),
         BlocProvider(create: (context) => getIt<GetLumpsumDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetSipDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetSwitchDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetStpDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetSwpDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetRedeemDataCubit>()),
+        BlocProvider(create: (context) => getIt<GetTransactionDetailsCubit>()),
+        BlocProvider(create: (context) => getIt<GetHoldingDetailsCubit>()),
+        BlocProvider(create: (context) => getIt<GetUserGoalsDetailsCubit>()),
       ],
       child: MaterialApp(
           title: "Maxwealth Distributor",

@@ -153,13 +153,24 @@ class _MonthwiseUserGraphState extends State<MonthwiseUserGraph> {
               barTouchData: BarTouchData(
                 enabled: true,
                 touchTooltipData: BarTouchTooltipData(
-                  tooltipBgColor: Colors.blueGrey,
+                  tooltipBgColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade800
+                          : Colors.white,
+                  tooltipPadding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   getTooltipItem: (group, groupIndex, rod, rodIndex) {
                     final month = monthLabels[group.x.toInt()];
+                    final label = 'Total Count ';
                     final value = rod.toY.toInt();
+                    final textColor =
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black;
                     return BarTooltipItem(
-                      '$month: $value',
-                      const TextStyle(color: Colors.white),
+                      '$month\n$label: $value',
+                      TextStyle(color: textColor, fontSize: 12),
+                      textAlign: TextAlign.center,
                     );
                   },
                 ),

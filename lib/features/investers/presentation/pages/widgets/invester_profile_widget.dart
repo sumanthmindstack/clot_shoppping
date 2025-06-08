@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maxwealth_distributor_app/common/formatters.dart';
 import 'package:maxwealth_distributor_app/config/routes/app_router.dart';
 import 'package:maxwealth_distributor_app/features/investers/presentation/bloc/change_primary_bank/change_primary_bank_cubit.dart';
+import 'package:maxwealth_distributor_app/features/investers/presentation/pages/widgets/invester_tabs/holdings_tab.dart';
 import 'package:maxwealth_distributor_app/features/investers/presentation/pages/widgets/invester_tabs/portfolio_summary_tab.dart';
 import 'package:maxwealth_distributor_app/themes/app_colors.dart';
 import '../../../../../widgets/custom_small_textbutton.dart';
@@ -16,6 +17,7 @@ import '../../bloc/investor_profile_data/investor_profile_data_cubit.dart';
 import 'edit_invester_screen.dart';
 import 'invester_tabs/account_summary_tab.dart';
 import 'invester_tabs/transaction_tab.dart';
+import 'invester_tabs/user_goals_tab.dart';
 
 @RoutePage()
 class InvestorProfilePage extends StatefulWidget {
@@ -521,8 +523,8 @@ class _InvestorProfilePageState extends State<InvestorProfilePage> {
         PortfolioSummaryTab(userId: data.userId ?? 0),
         AccountSummaryTab(userId: widget.userId),
         TransactionTab(userId: widget.userId),
-        const Center(child: Text("Tab 4")),
-        const Center(child: Text("Tab 5")),
+        HoldingsTab(userId: widget.userId),
+        UserGoalsTab(userId: widget.userId),
         const Center(child: Text("Tab 6")),
         const Center(child: Text("Tab 7")),
         const Center(child: Text("Tab 8")),

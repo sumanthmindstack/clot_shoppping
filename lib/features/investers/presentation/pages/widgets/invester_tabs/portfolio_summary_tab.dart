@@ -21,13 +21,8 @@ class PortfolioSummaryTab extends StatefulWidget {
 class _PortfolioSummaryTabState extends State<PortfolioSummaryTab> {
   @override
   void initState() {
+    intialApiCall();
     super.initState();
-    context
-        .read<PortfolioAnalysisGraphDataCubit>()
-        .getPortfolioAnalysisGraphData(userId: widget.userId, duration: 365);
-    context
-        .read<PortfolioAnalysisCubit>()
-        .getPortfolioAnalysis(userId: widget.userId);
   }
 
   @override
@@ -160,5 +155,14 @@ class _PortfolioSummaryTabState extends State<PortfolioSummaryTab> {
         return const SizedBox();
       },
     );
+  }
+
+  void intialApiCall() {
+    context
+        .read<PortfolioAnalysisGraphDataCubit>()
+        .getPortfolioAnalysisGraphData(userId: widget.userId, duration: 365);
+    context
+        .read<PortfolioAnalysisCubit>()
+        .getPortfolioAnalysis(userId: widget.userId);
   }
 }

@@ -179,17 +179,20 @@ class _ManageInvestorsPageState extends State<ManageInvestorsPage> {
                       controller: _scrollController,
                       itemCount: state.getInvesterListEntity.data.length,
                       itemBuilder: (context, index) {
-                        return InvestorCard(
-                          data: state.getInvesterListEntity.data[index],
-                          onTap: () {
-                            FocusScope.of(context).unfocus();
-                            AutoRouter.of(context).push(InvestorProfileRoute(
-                                bankId: state.getInvesterListEntity.data[index]
-                                    .userBankDetails,
-                                index: index,
-                                userId: state
-                                    .getInvesterListEntity.data[index].userId));
-                          },
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InvestorCard(
+                            data: state.getInvesterListEntity.data[index],
+                            onTap: () {
+                              FocusScope.of(context).unfocus();
+                              AutoRouter.of(context).push(InvestorProfileRoute(
+                                  bankId: state.getInvesterListEntity
+                                      .data[index].userBankDetails,
+                                  index: index,
+                                  userId: state.getInvesterListEntity
+                                      .data[index].userId));
+                            },
+                          ),
                         );
                       },
                     );

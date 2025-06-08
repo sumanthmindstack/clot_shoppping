@@ -1,7 +1,7 @@
 class GetLumpsumDataEntity {
   final List<LumpsumDataEntity>? data;
-
-  GetLumpsumDataEntity({this.data});
+  final MetaEntity? meta;
+  GetLumpsumDataEntity({this.data, this.meta});
 }
 
 class LumpsumDataEntity {
@@ -137,5 +137,19 @@ class LumpsumUserEntity {
     this.bulkUserFileId,
     this.createdAt,
     this.updatedAt,
+  });
+}
+
+class MetaEntity {
+  final int page;
+  final int limit;
+  final int total;
+  final int totalPages;
+
+  MetaEntity({
+    required this.page,
+    required this.limit,
+    required this.total,
+    required this.totalPages,
   });
 }

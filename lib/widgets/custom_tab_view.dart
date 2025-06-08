@@ -73,10 +73,7 @@ class _CustomTabViewState extends State<CustomTabView> {
           Flexible(
             fit: FlexFit.loose,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: widget.tabContents[_selectedIndex],
-              ),
+              child: widget.tabContents[_selectedIndex],
             ),
           ),
         ],

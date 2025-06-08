@@ -23,33 +23,30 @@ class InvestorCard extends StatefulWidget {
 class _InvestorCardState extends State<InvestorCard> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        decoration: _cardBoxDecoration,
-        child: BlocConsumer<GetInvesterListCubit, GetInvesterListState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            return InkWell(
-              borderRadius: BorderRadius.circular(12),
-              onTap: widget.onTap,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 10),
-                    _buildHeader(),
-                    const SizedBox(height: 12),
-                    const Divider(height: 1),
-                    const SizedBox(height: 12),
-                    _buildFooter(),
-                  ],
-                ),
+    return Container(
+      decoration: _cardBoxDecoration,
+      child: BlocConsumer<GetInvesterListCubit, GetInvesterListState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(12),
+            onTap: widget.onTap,
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 10),
+                  _buildHeader(),
+                  const SizedBox(height: 12),
+                  const Divider(height: 1),
+                  const SizedBox(height: 12),
+                  _buildFooter(),
+                ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -130,14 +127,16 @@ class _InvestorCardState extends State<InvestorCard> {
             _InfoItem(icon: Icons.credit_card, text: widget.data.pan),
           ],
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: 10),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _InfoItem(
                 icon: Icons.calendar_today,
                 text: Formatters()
                     .formatIsoToReadableDate(widget.data.createdAt)),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.18,
+            ),
             _buildActionButton(),
           ],
         ),

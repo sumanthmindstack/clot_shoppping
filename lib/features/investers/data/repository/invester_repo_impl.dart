@@ -11,11 +11,19 @@ import '../../domain/repository/invester_repo.dart';
 import '../data_source/invester_api_service.dart';
 import '../models/account_summary_data_response_model.dart';
 import '../models/check_kyc_response_model.dart';
+import '../models/get_holding_details_response_model.dart';
 import '../models/get_invester_list_response_model.dart';
 import '../models/get_kyc_details_response_model.dart';
 import '../models/get_kyc_user_list_response_model.dart';
 import '../models/get_lumpsum_data_response_model.dart';
+import '../models/get_redeemption_data_response_model.dart';
+import '../models/get_sip_data_response_model.dart';
+import '../models/get_stp_data_response_model.dart';
+import '../models/get_switch_data_response_model.dart';
+import '../models/get_swp_data_response_model.dart';
+import '../models/get_transaction_details_response_model.dart';
 import '../models/investor_profile_data_response_model.dart';
+import '../models/user_goals_response_model.dart';
 
 @LazySingleton(as: InvesterRepo)
 class InvesterRepoImpl implements InvesterRepo {
@@ -147,6 +155,86 @@ class InvesterRepoImpl implements InvesterRepo {
     return ApiCallWithError.call(
       () async {
         return await _investerApiService.getLumpsumData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetSipDataResponseModel>> getSipData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getSipData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetSwitchDataResponseModel>> getSwitchData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getSwitchData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetStpDataResponseModel>> getStpData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getStpData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetSwpDataResponseModel>> getSwpData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getSwpData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetRedeemptionDataResponseModel>> getRedeemData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getRedeemData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetTransactionDetailsResponseModel>>
+      getTransactionDetailsData(Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getTransactionDetailsData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, GetHoldingDetailsResponseModel>>
+      getHoldingsDetailsData(Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getHoldingsDetailsData(params);
+      },
+    );
+  }
+
+  @override
+  Future<Either<AppError, UserGoalsResponseModel>> getUserGoalsDetailsData(
+      Map<String, dynamic> params) {
+    return ApiCallWithError.call(
+      () async {
+        return await _investerApiService.getUserGoalsDetailsData(params);
       },
     );
   }

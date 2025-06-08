@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:maxwealth_distributor_app/common/formatters.dart';
 import 'package:maxwealth_distributor_app/themes/app_colors.dart';
 
+import '../../../../../../widgets/units_selection_widget.dart';
 import '../../../../domain/entity/account_summary_data_entity.dart';
 import '../../../bloc/account_summary_data/account_summary_data_cubit.dart';
 
@@ -34,19 +36,31 @@ class _AccountSummaryTabState extends State<AccountSummaryTab> {
             ),
           );
         }
-        if (state is AccountSummaryDataSuccessState) {
-          final data = state.accountSummaryDataEntity.data![0];
-          return SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                _buildScaleSelector(),
-                const SizedBox(height: 10),
-                _buildPerformanceDetails(context, data),
-              ],
-            ),
+        if (state is AccountSummaryDataFailureState) {
+          return const Center(
+            heightFactor: 10,
+            child: Text("No Data Available"),
           );
+        }
+        if (state is AccountSummaryDataSuccessState) {
+          final data = state.accountSummaryDataEntity.data;
+          return data!.isEmpty
+              ? const Center(
+                  heightFactor: 10,
+                  child: Text("No Data Available"),
+                )
+              : SingleChildScrollView(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      _buildScaleSelector(),
+                      const SizedBox(height: 10),
+                      _buildPerformanceDetails(context, data[0]),
+                    ],
+                  ),
+                );
         }
         return const Center(
           heightFactor: 10,
@@ -59,42 +73,14 @@ class _AccountSummaryTabState extends State<AccountSummaryTab> {
   Widget _buildScaleSelector() {
     final scales = ['Actual', 'Thousands', 'Lakhs', 'Crores', 'Billion'];
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: scales.map((scale) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: FilterChip(
-              label: Text(
-                scale,
-                style: TextStyle(
-                  color: _selectedScale == scale
-                      ? Colors.white
-                      : AppColors.primaryColor,
-                ),
-              ),
-              selected: _selectedScale == scale,
-              onSelected: (selected) {
-                setState(() {
-                  _selectedScale = selected ? scale : 'Actual';
-                });
-              },
-              selectedColor: AppColors.primaryColor,
-              backgroundColor: AppColors.pureWhite,
-              checkmarkColor: Colors.white,
-              shape: StadiumBorder(
-                side: BorderSide(
-                  color: _selectedScale == scale
-                      ? Colors.transparent
-                      : AppColors.primaryColor,
-                ),
-              ),
-            ),
-          );
-        }).toList(),
-      ),
-    );
+    return UnitsSelectionWidget(
+        selectedScale: _selectedScale,
+        onScaleSelected: (value) {
+          setState(() {
+            _selectedScale = value;
+          });
+        },
+        scales: scales);
   }
 
   Widget _buildPerformanceDetails(
@@ -126,16 +112,14 @@ class _AccountSummaryTabState extends State<AccountSummaryTab> {
           child: Column(
             children: [
               _buildMetricRow(
-                  context, 'Invested Amount', '₹ ${data.investedAmount}'),
+                  context, 'Invested Amount', '${data.investedAmount}'),
+              const Divider(),
+              _buildMetricRow(context, 'Current Value', data.currentValue),
+              const Divider(),
+              _buildMetricRow(context, 'Unrealised Gain', data.unrealizedGain),
               const Divider(),
               _buildMetricRow(
-                  context, 'Current Value', '₹  ${data.currentValue}'),
-              const Divider(),
-              _buildMetricRow(
-                  context, 'Unrealised Gain', '₹  ${data.unrealizedGain}'),
-              const Divider(),
-              _buildMetricRow(
-                  context, 'Absolute Returns', ' ${data.absoluteReturn}%'),
+                  context, 'Absolute Returns', '${data.absoluteReturn}%'),
               const Divider(),
               _buildMetricRow(context, 'CAGR', '1.13%'),
             ],
@@ -162,7 +146,8 @@ class _AccountSummaryTabState extends State<AccountSummaryTab> {
                 ),
           ),
           Text(
-            value,
+            Formatters()
+                .formatWithUnit(_safeParse(value).toInt(), _selectedScale),
             style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -174,6 +159,10 @@ class _AccountSummaryTabState extends State<AccountSummaryTab> {
         ],
       ),
     );
+  }
+
+  double _safeParse(String value) {
+    return double.tryParse(value.replaceAll(RegExp(r'[^\d\.-]'), '')) ?? 0.0;
   }
 
   void initCallApis(BuildContext context) {

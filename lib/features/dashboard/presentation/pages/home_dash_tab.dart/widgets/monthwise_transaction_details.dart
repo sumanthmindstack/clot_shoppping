@@ -138,7 +138,31 @@ class MonthwiseTransactionGraph extends StatelessWidget {
             BarChartData(
               alignment: BarChartAlignment.spaceAround,
               maxY: maxY > 0 ? maxY : 100,
-              barTouchData: BarTouchData(enabled: true),
+              barTouchData: BarTouchData(
+                enabled: true,
+                touchTooltipData: BarTouchTooltipData(
+                  tooltipBgColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.grey.shade800
+                          : Colors.white,
+                  tooltipPadding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                  getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                    final month = defaultMonths[group.x.toInt()];
+                    final value = rod.toY.toInt();
+                    final textColor =
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white
+                            : Colors.black;
+
+                    return BarTooltipItem(
+                      '$month\nTotal Amount:₹$value',
+                      TextStyle(color: textColor, fontSize: 12),
+                      textAlign: TextAlign.left,
+                    );
+                  },
+                ),
+              ),
               titlesData: FlTitlesData(
                 show: true,
                 leftTitles: AxisTitles(

@@ -60,7 +60,7 @@ dependencies:
   infinite_scroll_pagination: ^5.0.0
   shimmer: ^3.0.0
   csc_picker: ^0.2.7
-  cached_network_image: ^3.3.1
+  cached_network_image: ^3.4.1
   fl_chart: ^0.63.0
   url_launcher: ^6.3.0
   shared_preferences: ^2.2.3

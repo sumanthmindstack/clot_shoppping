@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/IconTimer.svg
+  SvgGenImage get iconTimer => const SvgGenImage('assets/images/IconTimer.svg');
+
   /// File path: assets/images/account_verfied.json
   String get accountVerfied => 'assets/images/account_verfied.json';
 
@@ -36,6 +39,18 @@ class $AssetsImagesGen {
   AssetGenImage get mpinLogo =>
       const AssetGenImage('assets/images/mpin_logo.png');
 
+  /// File path: assets/images/order_failed_logo.svg
+  SvgGenImage get orderFailedLogo =>
+      const SvgGenImage('assets/images/order_failed_logo.svg');
+
+  /// File path: assets/images/order_success.svg
+  SvgGenImage get orderSuccess =>
+      const SvgGenImage('assets/images/order_success.svg');
+
+  /// File path: assets/images/pending state.svg
+  SvgGenImage get pendingState =>
+      const SvgGenImage('assets/images/pending state.svg');
+
   /// File path: assets/images/total_aum_image.svg
   SvgGenImage get totalAumImage =>
       const SvgGenImage('assets/images/total_aum_image.svg');
@@ -53,12 +68,16 @@ class $AssetsImagesGen {
 
   /// List of all assets
   List<dynamic> get values => [
+        iconTimer,
         accountVerfied,
         accountVerifiedImage,
         investerImage,
         kycCheckImage,
         logo,
         mpinLogo,
+        orderFailedLogo,
+        orderSuccess,
+        pendingState,
         totalAumImage,
         userImage,
         verfiedAnimation,

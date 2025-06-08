@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
+
+import '../gen/assets.gen.dart';
 
 class Formatters {
   /// Formats a number using K, M, B suffixes or comma separators.
@@ -16,10 +19,30 @@ class Formatters {
     }
   }
 
-  /// Cleans a currency string (like ₹43,43,279.2) and converts to a double.
+  /// Cleans and parses a currency string, including unit suffixes like K, L, Cr, B.
   double parseCurrency(String currencyString) {
-    final cleaned = currencyString.replaceAll(RegExp(r'[^\d.]'), '');
-    return double.tryParse(cleaned) ?? 0.0;
+    final cleaned = currencyString.trim().toUpperCase();
+    final match = RegExp(r'^.*?([\d,.]+)\s*(K|L|CR|B)?$').firstMatch(cleaned);
+
+    if (match == null) return 0.0;
+
+    final numberPart = match.group(1)?.replaceAll(',', '') ?? '0';
+    final unit = match.group(2) ?? '';
+
+    final number = double.tryParse(numberPart) ?? 0.0;
+
+    switch (unit) {
+      case 'K':
+        return number * 1000;
+      case 'L':
+        return number * 100000;
+      case 'CR':
+        return number * 10000000;
+      case 'B':
+        return number * 1000000000;
+      default:
+        return number;
+    }
   }
 
   /// Formats a currency string into a shortened display (e.g. ₹4.3M).
@@ -57,7 +80,6 @@ class Formatters {
   }
 
   /// Formats a number into Indian currency style with rupee symbol and commas.
-  /// E.g. 123456.78 -> ₹1,23,456.78
   String formatIndianCurrency(num number, {String symbol = '₹'}) {
     final formatter = NumberFormat.currency(
       locale: 'en_IN',
@@ -95,8 +117,100 @@ class Formatters {
         return 'Rejected';
       case 'pending':
         return 'Pending';
+      case 'created':
+        return 'Created';
       default:
         return 'Unknown';
+    }
+  }
+
+  Color getTransactionStatusColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return Colors.blue;
+      case 'failed':
+        return Colors.red;
+      case 'pending':
+        return Colors.orange;
+      case 'created':
+        return Colors.blue;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  String getTransactionStatusLabel(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return 'Confirmed';
+      case 'failed':
+        return 'Failed';
+      case 'pending':
+        return 'Pending';
+      default:
+        return 'Unknown';
+    }
+  }
+
+  SvgPicture getStatusIcon(String status) {
+    switch (status.toLowerCase()) {
+      case 'pending':
+        return SvgPicture.asset(Assets.images.pendingState.path);
+      case 'rejected':
+      case 'failed':
+        return SvgPicture.asset(Assets.images.orderFailedLogo.path);
+      case 'confirmed':
+      case 'submitted':
+        return SvgPicture.asset(Assets.images.orderSuccess.path);
+      default:
+        return SvgPicture.asset(Assets.images.orderFailedLogo.path);
+    }
+  }
+
+  Color getVertialMoreIconColor(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return Colors.green;
+      case 'pending':
+        return Colors.orange;
+      case 'rejected':
+      case 'failed':
+        return Colors.red;
+      default:
+        return Colors.yellow;
+    }
+  }
+
+  Icon getVerticalMoreIcon(String status) {
+    switch (status.toLowerCase()) {
+      case 'confirmed':
+        return const Icon(Icons.check_circle, color: Colors.green, size: 24);
+      case 'pending':
+        return const Icon(Icons.access_time, color: Colors.orange, size: 24);
+      case 'rejected':
+      case 'failed':
+        return const Icon(Icons.cancel, color: Colors.red, size: 24);
+      default:
+        return const Icon(Icons.more_vert, color: Colors.yellow, size: 24);
+    }
+  }
+
+  /// Converts number based on unit passed: Thousands, Lakhs, Crores, Billions.
+  String formatWithUnit(num value, String scale) {
+    final formatter = NumberFormat.decimalPattern(); // Adds commas
+
+    switch (scale) {
+      case 'Thousands':
+        return '₹${(value / 1000).toStringAsFixed(2)} K';
+      case 'Lakhs':
+        return '₹${(value / 100000).toStringAsFixed(2)} L';
+      case 'Crores':
+        return '₹${(value / 10000000).toStringAsFixed(2)} Cr';
+      case 'Billion':
+        return '₹${(value / 1000000000).toStringAsFixed(2)} B';
+      case 'Actual':
+      default:
+        return "₹${formatter.format(value)}";
     }
   }
 
@@ -106,26 +220,38 @@ class Formatters {
       final dateTime = DateTime.parse(isoString).toLocal();
       return DateFormat('dd-MMM-yyyy HH:mm:ss').format(dateTime);
     } catch (e) {
-      return isoString; // return original if parsing fails
+      return isoString;
     }
   }
 
   String formatIsoToNormalDate(String isoString) {
     try {
       final dateTime = DateTime.parse(isoString).toLocal();
-      return DateFormat('dd-MMM-yyyy').format(dateTime); // Time removed
+      return DateFormat('dd-MMM-yyyy').format(dateTime);
     } catch (e) {
-      return isoString; // return original if parsing fails
+      return isoString;
     }
   }
 
-  /// Converts ISO 8601 string to 'dd-MM-yyyy' format
   String formatIsoToDdMmYyyy(String isoString) {
     try {
       final dateTime = DateTime.parse(isoString).toLocal();
       return DateFormat('dd-MM-yyyy').format(dateTime);
     } catch (e) {
       return isoString;
+    }
+  }
+
+  /// Formats a number adaptively: full number till 10k, then L/Cr.
+  String formatAdaptiveUnit(num value, {String symbol = '₹'}) {
+    if (value < 10000) {
+      return "$symbol${NumberFormat.decimalPattern('en_IN').format(value)}";
+    } else if (value >= 10000 && value < 100000) {
+      return "$symbol${(value / 1000).toStringAsFixed(1)} K";
+    } else if (value >= 100000 && value < 10000000) {
+      return "$symbol${(value / 100000).toStringAsFixed(2)} L";
+    } else {
+      return "$symbol${(value / 10000000).toStringAsFixed(2)} Cr";
     }
   }
 }
